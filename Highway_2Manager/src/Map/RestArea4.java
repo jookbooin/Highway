@@ -15,6 +15,7 @@ public class RestArea4 implements Manageable4 {
 
 	String fac;
 	ArrayList<String> faclist = new ArrayList<>();
+	
 	String gname = "»÷πﬂ¿Ø";
 	String dname = "∞Ê¿Ø";
 	String lname = "lpg";
@@ -79,7 +80,6 @@ public class RestArea4 implements Manageable4 {
 			return true;
 		if (menu.equals(kwd))
 			return true;
-
 		return false;
 	}
 
@@ -90,9 +90,7 @@ public class RestArea4 implements Manageable4 {
 			return true;
 		if (lpg == num)
 			return true;
-
 		return false;
-
 	}
 
 	public void printmenu() {

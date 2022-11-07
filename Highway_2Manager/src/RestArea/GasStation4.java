@@ -9,8 +9,7 @@ public class GasStation4 extends RestArea4 {
 		super(restnum);
 		// TODO Auto-generated constructor stub
 	}
-
-
+	
 	String gname = "»÷πﬂ¿Ø";
 	String dname = "∞Ê¿Ø";
 	String lname = "lpg";

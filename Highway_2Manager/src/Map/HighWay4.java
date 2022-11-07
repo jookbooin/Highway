@@ -10,7 +10,7 @@ import mgr.Manager4;
 public class HighWay4 implements Manageable4 {
 
 	Manager4<RestArea4> restMgr = new Manager4<>();
-	
+
 	ArrayList<RestArea4> savelist = new ArrayList<RestArea4>();
 	int num = 0;
 
@@ -49,6 +49,31 @@ public class HighWay4 implements Manageable4 {
 			print();
 			restMgr.printAll();
 		}
+
+		if (wayname.equals("중부내륙선") && direction.equals("상행")) {
+			restMgr.readAll("joongbunaeUp.txt", new Factory4<RestArea4>() {
+				@Override
+				public RestArea4 create(Scanner scan) {
+					// TODO Auto-generated method stub
+					return new RestArea4(num);
+				}
+			});
+			print();
+			restMgr.printAll();
+		}
+
+		if (wayname.equals("중부내륙선") && direction.equals("하행")) {
+			restMgr.readAll("joongbunaeDown.txt", new Factory4<RestArea4>() {
+				@Override
+				public RestArea4 create(Scanner scan) {
+					// TODO Auto-generated method stub
+					return new RestArea4(num);
+				}
+			});
+			print();
+			restMgr.printAll();
+		}
+
 	}
 
 	@Override
@@ -70,7 +95,7 @@ public class HighWay4 implements Manageable4 {
 			System.out.print("현재 휴게소 위치(시작은 X 입력):");
 			String curLo = Manager4.sc.next(); // 건천 휴게소 / X = 1번 휴게소
 			RestArea4 curRest = restMgr.find(curLo, null);
-			
+
 			if (curRest == null)
 				continue;
 			searchFunc(curRest);
@@ -86,8 +111,10 @@ public class HighWay4 implements Manageable4 {
 				searchGas(curRest, func);
 			if (func == 2)
 				searchCharge(curRest, func);
-			if (func == 4)
-				break;
+			if (func == 3)
+
+				if (func == 4)
+					break;
 		}
 	}
 
@@ -111,10 +138,7 @@ public class HighWay4 implements Manageable4 {
 		findCharge(curRest, curRest.restnum, end, num);
 		printSavelist(curRest, func);
 		savelist.clear();
-
 	}
-
-
 
 //	RestArea4 find( ,int n)
 
@@ -179,6 +203,5 @@ public class HighWay4 implements Manageable4 {
 				curRest.printcharge();
 		}
 		System.out.println();
-
 	}
 }
