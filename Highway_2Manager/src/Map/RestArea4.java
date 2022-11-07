@@ -3,9 +3,9 @@ package Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import mgr.Manageable;
+import mgr.Manageable4;
 
-public class RestArea4 implements Manageable {
+public class RestArea4 implements Manageable4 {
 
 	int restnum;
 
@@ -66,10 +66,13 @@ public class RestArea4 implements Manageable {
 		printgas();
 		indent();
 		printcharge();
+		System.out.println();
 	}
 
 	@Override
 	public boolean matches(String kwd) {
+		if (restname.equals(kwd))
+			return true;
 		if (electric.equals(kwd))
 			return true;
 		if (hydrogen.equals(kwd))

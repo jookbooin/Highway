@@ -3,13 +3,13 @@ package Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import mgr.Factory;
-import mgr.Manageable;
-import mgr.Manager;
+import mgr.Factory4;
+import mgr.Manageable4;
+import mgr.Manager4;
 
-public class HighWay4 implements Manageable {
+public class HighWay4 implements Manageable4 {
 
-	Manager<RestArea4> restMgr = new Manager<>();
+	Manager4<RestArea4> restMgr = new Manager4<>();
 	
 	ArrayList<RestArea4> savelist = new ArrayList<RestArea4>();
 	int num = 0;
@@ -27,7 +27,7 @@ public class HighWay4 implements Manageable {
 	public void read(Scanner scan) {
 
 		if (wayname.equals("경부선") && direction.equals("상행")) {
-			restMgr.readAll("kyoungbuUp.txt", new Factory<RestArea4>() {
+			restMgr.readAll("kyoungbuUp.txt", new Factory4<RestArea4>() {
 				@Override
 				public RestArea4 create(Scanner scan) {
 					// TODO Auto-generated method stub
@@ -39,14 +39,13 @@ public class HighWay4 implements Manageable {
 		}
 
 		if (wayname.equals("경부선") && direction.equals("하행")) {
-			restMgr.readAll("kyoungbuDown.txt", new Factory<RestArea4>() {
+			restMgr.readAll("kyoungbuDown.txt", new Factory4<RestArea4>() {
 				@Override
 				public RestArea4 create(Scanner scan) {
 					// TODO Auto-generated method stub
 					return new RestArea4(num);
 				}
 			});
-			System.out.println();
 			print();
 			restMgr.printAll();
 		}
@@ -69,23 +68,24 @@ public class HighWay4 implements Manageable {
 	void search() {
 		while (true) {
 			System.out.print("현재 휴게소 위치(시작은 X 입력):");
-			String curLo = Manager.sc.next(); // 건천 휴게소 / X = 1번 휴게소
-			RestArea4 curRest = find(curLo);
+			String curLo = Manager4.sc.next(); // 건천 휴게소 / X = 1번 휴게소
+			RestArea4 curRest = restMgr.find(curLo, null);
+			
 			if (curRest == null)
 				continue;
 			searchFunc(curRest);
 		}
 	}
+	// Manager로 뺄 수 있을까?
 
 	void searchFunc(RestArea4 curRest) {
 		while (true) {
 			System.out.print("1.최저값 주유소 2.충전소 유무확인 3.그외 4.이전");
-			int func = Manager.sc.nextInt();
+			int func = Manager4.sc.nextInt();
 			if (func == 1)
 				searchGas(curRest, func);
 			if (func == 2)
 				searchCharge(curRest, func);
-
 			if (func == 4)
 				break;
 		}
@@ -93,8 +93,7 @@ public class HighWay4 implements Manageable {
 
 	void searchGas(RestArea4 curRest, int func) {
 		System.out.println("어떤 종류를 검색하시겠습니까(1.휘발유 2.경유 3.lpg)");
-		int num = Manager.sc.nextInt();
-
+		int num = Manager4.sc.nextInt();
 		int end = restMgr.mList.size();
 
 		int min = findMinPrice(curRest, curRest.restnum, end, num);
@@ -108,24 +107,14 @@ public class HighWay4 implements Manageable {
 		int end = restMgr.mList.size();
 
 		System.out.println("어떤 종류를 검색하시겠습니까(1충전소 2.수소)");
-		int num = Manager.sc.nextInt();
+		int num = Manager4.sc.nextInt();
 		findCharge(curRest, curRest.restnum, end, num);
 		printSavelist(curRest, func);
 		savelist.clear();
 
 	}
 
-	// Manager로 뺄 수 있을까?
-	RestArea4 find(String kwd) {
-		if (kwd.equalsIgnoreCase("X"))
-			return restMgr.mList.get(0);
-		for (RestArea4 r : restMgr.mList) {
-			if (r.restname.equals(kwd))
-				return r;
-		}
-		System.out.println("해당 휴게소가 존재 하지않습니다");
-		return null;
-	}
+
 
 //	RestArea4 find( ,int n)
 

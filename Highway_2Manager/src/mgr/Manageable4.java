@@ -2,7 +2,7 @@ package mgr;
 
 import java.util.Scanner;
 
-public interface Manageable {
+public interface Manageable4 {
 	void read(Scanner scan);
 
 	void print();

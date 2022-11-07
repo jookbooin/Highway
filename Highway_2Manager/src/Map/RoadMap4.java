@@ -2,18 +2,18 @@ package Map;
 
 import java.util.Scanner;
 
-import mgr.Factory;
-import mgr.Manager;
+import mgr.Factory4;
+import mgr.Manager4;
 
 public class RoadMap4 {
 
-	Manager<HighWay4> hMgr = new Manager<HighWay4>();
+	Manager4<HighWay4> hMgr = new Manager4<HighWay4>();
 
 	String roadType;
 	String direction;
 
 	void run() {
-		hMgr.readAll("HighWay.txt", new Factory<HighWay4>() {
+		hMgr.readAll("HighWay.txt", new Factory4<HighWay4>() {
 			@Override
 			public HighWay4 create(Scanner scan) {
 				roadType = scan.next();
@@ -25,25 +25,18 @@ public class RoadMap4 {
 	}
 
 	void search() {
+		HighWay4 driveWay = null;
 		System.out.println("=========== 검색 메뉴 ============");
 		while (true) {
 			System.out.print("현재 고속도로 종류(종료 end):");
-			String rtype = Manager.sc.next();
+			String rtype = Manager4.sc.next();
 			if (rtype.equals("end"))
 				break;
 			System.out.println("방향(상행/하행):");
-			String direc = Manager.sc.next();
-			HighWay4 driveWay = find(rtype, direc); // 고속도로 종류 -> 리스트 가져오기
+			String direc = Manager4.sc.next();
+			driveWay = hMgr.find(rtype,direc); // 고속도로 종류 -> 리스트 가져오기
 			driveWay.search();
 		}
-	}
-
-	HighWay4 find(String roadtype, String direction) {
-		for (HighWay4 h : hMgr.mList) // 고속도로(경부선 하행) 가져옴
-			if (h.matches(roadtype) && h.matches(direction)) {
-				return h;
-			}
-		return null;
 	}
 
 	public static void main(String[] args) {
