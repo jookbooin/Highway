@@ -40,6 +40,7 @@ public class HighWay4 implements Manageable4 {
 
 		if (wayname.equals("경부선") && direction.equals("하행")) {
 			restMgr.readAll("kyoungbuDown.txt", new Factory4<RestArea4>() {
+
 				@Override
 				public RestArea4 create(Scanner scan) {
 					// TODO Auto-generated method stub
@@ -62,7 +63,9 @@ public class HighWay4 implements Manageable4 {
 			restMgr.printAll();
 		}
 
-		if (wayname.equals("중부내륙선") && direction.equals("하행")) {
+		if (wayname.equals("중부내륙선") && direction.equals("하행"))
+
+		{
 			restMgr.readAll("joongbunaeDown.txt", new Factory4<RestArea4>() {
 				@Override
 				public RestArea4 create(Scanner scan) {
@@ -111,10 +114,10 @@ public class HighWay4 implements Manageable4 {
 				searchGas(curRest, func);
 			if (func == 2)
 				searchCharge(curRest, func);
-			if (func == 3)
+//			if (func == 3)
 
-				if (func == 4)
-					break;
+			if (func == 4)
+				break;
 		}
 	}
 
@@ -124,6 +127,7 @@ public class HighWay4 implements Manageable4 {
 		int end = restMgr.mList.size();
 
 		int min = findMinPrice(curRest, curRest.restnum, end, num);
+		System.out.printf("(%d)최저값: %d원\n",num,min);
 		compareGas(curRest.restnum, end, num, min);
 		printSavelist(curRest, func);
 		savelist.clear();
@@ -143,19 +147,38 @@ public class HighWay4 implements Manageable4 {
 //	RestArea4 find( ,int n)
 
 	// 최저값 찾기
+	// 문제점 - 0인 cur이 나왔을때 min 이 무조건 0 이 되는 경우
 	int findMinPrice(RestArea4 curRest, int start, int end, int num) {
+
 		int min = 0;
+		int next = 0;
 
 		for (int i = start; i < end; i++) {
+			if (num == 1 && curRest.gasoline > 0)
+				break;
+			if (num == 2 && curRest.diesel > 0)
+				break;
+			if (num == 3 && curRest.lpg > 0)
+				break;
+			else {
+				curRest = restMgr.mList.get(i);
+				next = i;
+				}
+			}
+
+		for (int i = next; i < end; i++) {
+
 			RestArea4 compare = restMgr.mList.get(i);
 
 			if (compare.restnum > curRest.restnum) {
-				if (num == 1 && compare.gasoline > 0 && compare.gasoline < curRest.gasoline)
+				if (num == 1 && compare.gasoline > 0 && compare.gasoline <= curRest.gasoline)
 					min = compare.gasoline;
-				if (num == 2 && compare.diesel > 0 && compare.diesel < curRest.diesel)
+				if (num == 2 && compare.diesel > 0 && compare.diesel <= curRest.diesel)
 					min = compare.diesel;
-				if (num == 3 && compare.lpg > 0 && compare.lpg < curRest.lpg)
+
+				if (num == 3 && compare.lpg > 0 && compare.lpg <= curRest.lpg)
 					min = compare.lpg;
+
 			}
 		}
 		return min;

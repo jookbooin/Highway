@@ -21,6 +21,7 @@ public class Manager4<T extends Manageable4> {
 			if(p.matches(name))
 				return p;
 		}
+		
 		System.out.println("존재하지 않습니다.");
 		return null;
 	}

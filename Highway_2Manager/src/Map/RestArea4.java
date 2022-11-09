@@ -92,6 +92,12 @@ public class RestArea4 implements Manageable4 {
 			return true;
 		return false;
 	}
+	
+	public boolean check(int n) {
+		if (n>0)
+			return true;
+		return false;
+	}
 
 	public void printmenu() {
 		System.out.format("대표메뉴:%s\n", menu);
