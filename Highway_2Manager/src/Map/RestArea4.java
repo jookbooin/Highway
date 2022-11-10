@@ -15,7 +15,8 @@ public class RestArea4 implements Manageable4 {
 
 	String fac;
 	ArrayList<String> faclist = new ArrayList<>();
-	
+	ArrayList<String> foodlist = new ArrayList<>();
+
 	String gname = "휘발유";
 	String dname = "경유";
 	String lname = "lpg";
@@ -27,8 +28,8 @@ public class RestArea4 implements Manageable4 {
 	protected String electric;
 	protected String hydrogen;
 
-	protected RestArea4(int restnum) {
-		this.restnum = restnum;
+	protected RestArea4() {
+		
 	}
 
 	@Override
@@ -43,7 +44,13 @@ public class RestArea4 implements Manageable4 {
 			faclist.add(fac);
 		}
 
-		menu = scan.next();
+		while (true) {
+			menu = scan.next();
+			if (menu.equals("E"))
+				break;
+			foodlist.add(menu);
+		}
+
 		gasoline = scan.nextInt();
 		diesel = scan.nextInt();
 		lpg = scan.nextInt();
@@ -55,19 +62,10 @@ public class RestArea4 implements Manageable4 {
 	@Override
 	public void print() {
 		System.out.format("%d.%s휴게소 (T.%12s)\n", restnum, restname, number);
-		System.out.format("  편의시설:");
-		for (String s : faclist) {
-			System.out.format(s + " ");
-		}
-
-		System.out.println();
-		indent();
+		printfac();
 		printmenu();
-		indent();
 		printgas();
-		indent();
 		printcharge();
-		System.out.println();
 	}
 
 	@Override
@@ -83,6 +81,11 @@ public class RestArea4 implements Manageable4 {
 		return false;
 	}
 
+	public boolean matches(String[] kwd) {
+
+		return true;
+	}
+
 	public boolean matches(int num) {
 		if (gasoline == num)
 			return true;
@@ -92,23 +95,40 @@ public class RestArea4 implements Manageable4 {
 			return true;
 		return false;
 	}
-	
+
 	public boolean check(int n) {
-		if (n>0)
+		if (n > 0)
 			return true;
 		return false;
 	}
 
+	public void printfac() {
+		indent();
+		System.out.format("편의시설:");
+		for (String s : faclist) {
+			System.out.format(s + " ");
+		}
+		System.out.println();
+	}
+
 	public void printmenu() {
-		System.out.format("대표메뉴:%s\n", menu);
+		indent();
+		System.out.format("음식:");
+		for (String s : foodlist) {
+			System.out.format(s + " ");
+		}
+		System.out.println();
 	}
 
 	public void printgas() {
+		indent();
 		System.out.format("(%s):%4d원 | (%s):%4d원 | (%s):%4d원\n", gname, gasoline, dname, diesel, lname, lpg);
 	}
 
 	public void printcharge() {
+		indent();
 		System.out.format("(전기):%s | (수소):%s\n", electric, hydrogen);
+		System.out.println();
 	}
 
 	void indent() {

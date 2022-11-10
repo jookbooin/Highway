@@ -20,7 +20,13 @@ public class RoadMap4 {
 				direction = scan.next();
 				return new HighWay4(roadType, direction);
 			}
-		});
+		});  
+		
+//		System.out.println(hMgr.find("경부선","상행").direction);
+//		System.out.println(hMgr.find("경부선","하행").direction);
+//		System.out.println(hMgr.mList.get(0).direction); // 상행
+//		System.out.println(hMgr.mList.get(1).direction); // 하행
+		
 		search();
 	}
 
@@ -30,11 +36,17 @@ public class RoadMap4 {
 		while (true) {
 			System.out.print("현재 고속도로 종류(종료 end):");
 			String rtype = Manager4.sc.next();
+				
 			if (rtype.equals("end"))
 				break;
+				
 			System.out.println("방향(상행/하행):");
 			String direc = Manager4.sc.next();
 			driveWay = hMgr.find(rtype,direc); // 고속도로 종류 -> 리스트 가져오기
+
+			if(driveWay == null)
+				continue;
+			
 			driveWay.search();
 		}
 	}

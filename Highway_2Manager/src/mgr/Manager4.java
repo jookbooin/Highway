@@ -18,10 +18,22 @@ public class Manager4<T extends Manageable4> {
 		for (T p : mList) {
 			if (p.matches(name)&&p.matches(next))
 				return p;
-			if(p.matches(name))
-				return p;
+
 		}
 		
+		System.out.println("존재하지 않습니다.");
+		return null;
+	}
+	
+	public T find(String name) {
+		if (name.equalsIgnoreCase("x"))
+			return mList.get(0);
+		
+		for (T p : mList) {
+			if (p.matches(name))
+				return p;
+			
+		}
 		System.out.println("존재하지 않습니다.");
 		return null;
 	}
@@ -49,23 +61,20 @@ public class Manager4<T extends Manageable4> {
 		for (T p  : mList) 
 			p.print();
 	}
-	
-	public void search() {
-		
+
+	public T search() {
+		String kwd = null;
+		while (true) {
+			System.out.print(">>");
+			kwd = sc.next();
+			if (kwd.contentEquals("end"))
+				break;
+			for (T m : mList) {
+				if (m.matches(kwd))
+					return m;
+			}
+		}
+		return null;
 	}
-	
-//	public void search() {
-//		String kwd = null;
-//		while (true) {
-//			System.out.print("검색키워드:");
-//			kwd = sc.next();
-//			if (kwd.contentEquals("end"))
-//				break;
-//			for (T m : mList) {
-//				if (m.matches(kwd))
-//					m.print();
-//			}
-//		}
-//	}
 	
 }

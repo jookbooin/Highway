@@ -5,10 +5,10 @@ import Map.RestArea4;
 public class GasStation4 extends RestArea4 {
 
 
-	protected GasStation4(int restnum) {
-		super(restnum);
-		// TODO Auto-generated constructor stub
-	}
+//	protected GasStation4(int restnum) {
+//		super(restnum);
+//		// TODO Auto-generated constructor stub
+//	}
 	
 	String gname = "»÷πﬂ¿Ø";
 	String dname = "∞Ê¿Ø";
