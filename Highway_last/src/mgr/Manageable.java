@@ -8,4 +8,6 @@ public interface Manageable {
 	void print();
 
 	boolean matches(String kwd);
+	
+	boolean matches(String[] kwdArr);
 }

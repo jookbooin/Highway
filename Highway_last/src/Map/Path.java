@@ -1,25 +1,54 @@
 package Map;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import mgr.Manageable;
 
 public class Path implements Manageable{
-
+	
+	String pathID;
+	String start;
+	String startIC;
+	String arriveIC;
+	String arrive;
+	
+	ArrayList<Pathlist> pathlist = new ArrayList<>();
+	
+	void addPathlist(Pathlist pl) {
+		pathlist.add(pl);
+	}
 	@Override
 	public void read(Scanner scan) {
-		// TODO Auto-generated method stub
+		pathID = scan.next();
+		start = scan.next();
+		arrive = scan.next();
+		startIC = scan.next();	
+		arriveIC = scan.next();
 		
 	}
 
 	@Override
 	public void print() {
-		// TODO Auto-generated method stub
 		
+		System.out.format("[%s->%s] 시작IC:%sIC 종료IC:%sIC\n",start,arrive,startIC,arriveIC);
+		
+		for(Pathlist pl : pathlist)
+			pl.print();
+		System.out.println();
+			
 	}
 
 	@Override
 	public boolean matches(String kwd) {
+		if(pathID.equals(kwd))
+			return true;
+		
+		
+		return false;
+	}
+	@Override
+	public boolean matches(String[] kwdArr) {
 		// TODO Auto-generated method stub
 		return false;
 	}

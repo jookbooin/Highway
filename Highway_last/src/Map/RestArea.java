@@ -7,13 +7,13 @@ import mgr.Manageable;
 
 public class RestArea implements Manageable {
 
-
-	String roadtype;
+	int num;
+	String waytype;
 	String restname;
 	String number;
 	String menu;
 	String fac;
-	
+
 	ArrayList<String> faclist = new ArrayList<>();
 	ArrayList<String> foodlist = new ArrayList<>();
 
@@ -26,13 +26,16 @@ public class RestArea implements Manageable {
 	int lpg;
 
 	String electric;
-	 String hydrogen;
+	String hydrogen;
 
-	RestArea() {	}
+	RestArea() {
+	}
 
 	@Override
 	public void read(Scanner scan) {
-		roadtype = scan.next();
+		HighWay.restnum++;
+		num = HighWay.restnum;
+		waytype = scan.next();
 		restname = scan.next();
 		number = scan.next();
 		while (true) {
@@ -59,7 +62,8 @@ public class RestArea implements Manageable {
 
 	@Override
 	public void print() {
-		System.out.format("[%s선] %s휴게소 (T.%12s)\n",roadtype, restname, number);
+		System.out.print(num+".");
+		printname();
 		printfac();
 		printmenu();
 		printgas();
@@ -68,6 +72,8 @@ public class RestArea implements Manageable {
 
 	@Override
 	public boolean matches(String kwd) {
+		if (waytype.equals(kwd))
+			return true;
 		if (restname.equals(kwd))
 			return true;
 		if (electric.equals(kwd))
@@ -76,6 +82,13 @@ public class RestArea implements Manageable {
 			return true;
 		if (menu.equals(kwd))
 			return true;
+		if ((""+gasoline).equals(kwd))
+			return true;
+		if ((""+diesel).equals(kwd))
+			return true;
+		if ((""+lpg).equals(kwd))
+			return true;
+		
 		return false;
 	}
 
@@ -84,22 +97,10 @@ public class RestArea implements Manageable {
 		return true;
 	}
 
-	public boolean matches(int num) {
-		if (gasoline == num)
-			return true;
-		if (diesel == num)
-			return true;
-		if (lpg == num)
-			return true;
-		return false;
-	}
 
-	public boolean check(int n) {
-		if (n > 0)
-			return true;
-		return false;
+	public void printname() {
+		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);	
 	}
-
 	public void printfac() {
 		indent();
 		System.out.format("편의시설:");
