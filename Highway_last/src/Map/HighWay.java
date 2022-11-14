@@ -39,9 +39,9 @@ public class HighWay {
 	pathMgr.printAll();
 	
 	System.out.println("\n=================경로 선택 =================");
-	pathMgr.searchArray(); // [시작,도착,시작ic,도착ic] 입력을 통해 Path 찾기(Path id = 3 인 경로)
-						   // path에서 세부적으로  pathlist 선택 (경부 or 영동 중부 경부.. 지나는 pathlist)
-						   //
+//	pathMgr.searchArray(); // [시작,도착,시작ic,도착ic] 입력을 통해 Path 찾기(Path id = 3 인 경로)
+//						   // path에서 세부적으로  pathlist 선택 (경부 or 영동 중부 경부.. 지나는 pathlist)
+
 	
 	
 	
