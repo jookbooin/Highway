@@ -7,8 +7,8 @@ import mgr.Manageable;
 
 public class RestArea implements Manageable {
 
-	int num;       //전체 restArea의 개수를 알기위해서 
-	int pathnum;   //경로 생성했을때 번호 
+	int num; // 전체 restArea의 개수를 알기위해서
+	int pathnum; // 경로 생성했을때 번호
 	String waytype;
 	String restname;
 	String number;
@@ -63,12 +63,16 @@ public class RestArea implements Manageable {
 
 	@Override
 	public void print() {
-		System.out.print(num+".");
+		System.out.print(num + ".");
 		printname();
-		indent();printfac();
-		indent();printmenu();
-		indent();printgas();
-		indent();printcharge();
+		indent();
+		printfac();
+		indent();
+		printmenu();
+		indent();
+		printgas();
+		indent();
+		printcharge();
 	}
 
 	@Override
@@ -83,27 +87,37 @@ public class RestArea implements Manageable {
 			return true;
 		if (menu.equals(kwd))
 			return true;
-		if ((""+gasoline).equals(kwd))
+		if (("" + gasoline).equals(kwd))
 			return true;
-		if ((""+diesel).equals(kwd))
+		if (("" + diesel).equals(kwd))
 			return true;
-		if ((""+lpg).equals(kwd))
+		if (("" + lpg).equals(kwd))
 			return true;
-		
+		for (String s : faclist) // 한개라도 있으면 true
+			if (s.equals(kwd))
+				return true;
+		for (String s : foodlist)// 한개라도 있으면 true
+			if (s.equals(kwd))
+				return true;
+
 		return false;
 	}
 
-	public boolean matches(String[] kwd) {
-
-		return true;
+	public boolean matches(String[] kwdArr) {
+		for (String kwd : kwdArr) {
+			if (matches(kwd)) {
+				return true;
+			}
+		}
+		return false;
 	}
-
 
 	public void printname() {
-		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);	
+		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);
 	}
+
 	public void printfac() {
-		
+
 		System.out.format("편의시설:");
 		for (String s : faclist) {
 			System.out.format(s + " ");
@@ -112,7 +126,7 @@ public class RestArea implements Manageable {
 	}
 
 	public void printmenu() {
-		
+
 		System.out.format("음식:");
 		for (String s : foodlist) {
 			System.out.format(s + " ");
@@ -121,12 +135,12 @@ public class RestArea implements Manageable {
 	}
 
 	public void printgas() {
-		
+
 		System.out.format("(%s):%4d원 | (%s):%4d원 | (%s):%4d원\n", gname, gasoline, dname, diesel, lname, lpg);
 	}
 
 	public void printcharge() {
-		
+
 		System.out.format("(전기):%s | (수소):%s\n", electric, hydrogen);
 	}
 

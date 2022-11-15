@@ -61,22 +61,24 @@ public class Manager<T extends Manageable> {
 		return null;
 	}
 
-	public T searchArray() {
-		String kwd = null;
-		String[] kwdArr;
-		while (true) {
-			System.out.print("*검색키워드 여러개(빈칸으로 구분):(end)종료");
-			kwd = sc.nextLine();
-			if (kwd.contentEquals("end"))
-				break;
-			kwdArr = kwd.split(" ");
-			for (T m : mlist) {
-				if (m.matches(kwdArr))
-					return m;
-			}
-		}
-		return null;
-	}
+//	public T search() {
+//		String kwd = null;
+//		String[] kwdArr;
+//		while (true) {
+////			System.out.print("*검색키워드 여러개(빈칸으로 구분):(end)종료");
+//			System.out.print(">>");
+//			kwd = sc.nextLine();
+//			if (kwd.contentEquals("end"))
+//				break;
+//			kwdArr = kwd.split(" ");
+//			for (T m : mlist) {
+//				if (m.matches(kwdArr))
+//					return m;
+//			}
+//		}
+//		return null;
+//
+//	}
 
 //		while (true) {
 //			System.out.print("*검색키워드 여러개(빈칸으로 구분):(0)종료");
@@ -92,5 +94,4 @@ public class Manager<T extends Manageable> {
 //		return null;
 //	}
 
-	
 }

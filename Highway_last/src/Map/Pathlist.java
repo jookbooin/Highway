@@ -21,16 +21,6 @@ public class Pathlist implements Manageable {
 	ArrayList<RestArea> restlist = new ArrayList<>(); // 경로상 휴게소 전체
 	Set<String> restset = new HashSet<>(); // 경로에 지나는 고속도로들
 	ArrayList<RestArea> sublist;
-//	void search() {
-//		while (true) {
-//			System.out.print("현재 휴게소 위치(시작은 X 입력):");
-//			String curLo = Manager.sc.next(); // 건천 휴게소 / X = 1번 휴게소
-//			RestArea curRest = restMgr.find(curLo);
-//
-//			if (curRest == null)
-//				continue;
-//		}
-//	}
 
 	void search() {
 		System.out.println("휴게소이름 입력");
@@ -55,10 +45,13 @@ public class Pathlist implements Manageable {
 //				printsubcharge(num2);
 //			}
 //		}
-		
-		
+		System.out.println("키워드 입력");
+		String elements = Manager.sc.nextLine();
+		String[] kwd =elements.split(" ");
+		for(RestArea ra : sublist)
+			if(ra.matches(kwd))
+				ra.print();
 
-		
 	}
 
 	@Override
@@ -85,6 +78,22 @@ public class Pathlist implements Manageable {
 	public void print() {
 		printPathlist();
 		printAllrest();
+	}
+
+	@Override
+	public boolean matches(String kwd) {
+
+		return false;
+	}
+
+	@Override
+	public boolean matches(String[] kwdArr) {
+		
+		for (String kwd : kwdArr) {
+
+		}
+		return false;
+
 	}
 
 	void printPathlist() {
@@ -165,19 +174,7 @@ public class Pathlist implements Manageable {
 		}
 	}
 
-	@Override
-	public boolean matches(String kwd) {
-
-		return false;
-	}
-
 	void indent() {
 		System.out.print("    ");
-	}
-
-	@Override
-	public boolean matches(String[] kwdArr) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

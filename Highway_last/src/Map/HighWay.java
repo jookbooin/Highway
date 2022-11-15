@@ -46,7 +46,8 @@ public class HighWay {
 		Pathlist selectPath = makeMgr.mlist.get(0);
 		System.out.print(selectPath.pathID + " " + selectPath.pathlistnum);
 		
-		selectPath.search();//경로 휴게소내에서 검색 
+//		selectPath.search();///경로 휴게소내에서 검색 
+		selectPath.search();
 
 
 

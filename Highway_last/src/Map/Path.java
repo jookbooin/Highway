@@ -52,8 +52,11 @@ public class Path implements Manageable {
 
 	@Override
 	public boolean matches(String[] kwdArr) {
-		// TODO Auto-generated method stub
+		for (String kwd : kwdArr) {
+
+		}
 		return false;
+
 	}
 
 	void printIC() {
