@@ -8,13 +8,13 @@ import java.util.Scanner;
 public class Manager<T extends Manageable> {
 	static public Scanner sc = new Scanner(System.in);
 
-	public ArrayList<T> mList = new ArrayList<>();
+	public ArrayList<T> mlist = new ArrayList<>();
 
 	public T find(String name) {
 		if (name.equalsIgnoreCase("x"))
-			return mList.get(0);
+			return mlist.get(0);
 
-		for (T p : mList) {
+		for (T p : mlist) {
 			if (p.matches(name))
 				return p;
 
@@ -34,7 +34,7 @@ public class Manager<T extends Manageable> {
 		while (filein.hasNext()) {
 			T m = fac.create(filein);
 			m.read(filein);
-			mList.add(m);
+			mlist.add(m);
 
 		}
 		filein.close();
@@ -42,7 +42,7 @@ public class Manager<T extends Manageable> {
 
 	public void printAll() {
 
-		for (T p : mList)
+		for (T p : mlist)
 			p.print();
 	}
 
@@ -53,7 +53,7 @@ public class Manager<T extends Manageable> {
 			kwd = sc.next();
 			if (kwd.contentEquals("end"))
 				break;
-			for (T m : mList) {
+			for (T m : mlist) {
 				if (m.matches(kwd))
 					return m;
 			}
@@ -70,7 +70,7 @@ public class Manager<T extends Manageable> {
 			if (kwd.contentEquals("end"))
 				break;
 			kwdArr = kwd.split(" ");
-			for (T m : mList) {
+			for (T m : mlist) {
 				if (m.matches(kwdArr))
 					return m;
 			}

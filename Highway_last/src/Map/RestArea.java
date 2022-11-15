@@ -7,7 +7,8 @@ import mgr.Manageable;
 
 public class RestArea implements Manageable {
 
-	int num;
+	int num;       //전체 restArea의 개수를 알기위해서 
+	int pathnum;   //경로 생성했을때 번호 
 	String waytype;
 	String restname;
 	String number;
@@ -64,10 +65,10 @@ public class RestArea implements Manageable {
 	public void print() {
 		System.out.print(num+".");
 		printname();
-		printfac();
-		printmenu();
-		printgas();
-		printcharge();
+		indent();printfac();
+		indent();printmenu();
+		indent();printgas();
+		indent();printcharge();
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class RestArea implements Manageable {
 		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);	
 	}
 	public void printfac() {
-		indent();
+		
 		System.out.format("편의시설:");
 		for (String s : faclist) {
 			System.out.format(s + " ");
@@ -111,7 +112,7 @@ public class RestArea implements Manageable {
 	}
 
 	public void printmenu() {
-		indent();
+		
 		System.out.format("음식:");
 		for (String s : foodlist) {
 			System.out.format(s + " ");
@@ -120,14 +121,13 @@ public class RestArea implements Manageable {
 	}
 
 	public void printgas() {
-		indent();
+		
 		System.out.format("(%s):%4d원 | (%s):%4d원 | (%s):%4d원\n", gname, gasoline, dname, diesel, lname, lpg);
 	}
 
 	public void printcharge() {
-		indent();
+		
 		System.out.format("(전기):%s | (수소):%s\n", electric, hydrogen);
-		System.out.println();
 	}
 
 	void indent() {
