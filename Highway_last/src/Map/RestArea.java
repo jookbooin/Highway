@@ -85,7 +85,7 @@ public class RestArea implements Manageable, UIData {
 				return true;
 			if (restname.equals(kwd))
 				return true;
-			if (number.equals(kwd))
+			if (number.contains(kwd))
 				return true;
 			if (electric.equals(kwd))
 				return true;

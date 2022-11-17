@@ -57,7 +57,7 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 		table = new JTable(tableModel);
 		ListSelectionModel rowSM = table.getSelectionModel();
 		rowSM.addListSelectionListener(this);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 220));
+		table.setPreferredScrollableViewportSize(new Dimension(500, 400));
 		table.setFillsViewportHeight(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}

@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import Highway_mgr.PathMgr;
 import Highway_mgr.RestMgr;
 import Map.HighWay;
 
@@ -12,7 +13,8 @@ public class GUIMain {
 
 	private static GUIMain main = null;
 
-	private GUIMain() {}
+	private GUIMain() {
+	}
 
 	public static GUIMain getInstance() {
 		if (main == null)
@@ -38,41 +40,57 @@ public class GUIMain {
 		});
 	}
 
-	//창 이름 
+	// 창 이름
 	static JFrame mainFrame = new JFrame("TableSelectionDemo");
 
 	private void createAndShowGUI() {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// 탭을 생성하고 두개 패널을 추가한다.
+		
 		JTabbedPane jtab = new JTabbedPane();
+		
 		setupRestPane();
-//		setupPathPane();
-		 jtab.add("휴게소", RestAreaPane);
-		 mainFrame.getContentPane().add(jtab);
-		 mainFrame.pack();
-	     mainFrame.setVisible(true);
+		setupPathPane();
+		
+		// 탭을 생성하고 두개 패널을 추가한다.
+		jtab.add("휴게소", restareaPane);
+		jtab.add("경로", pathPane);
+		
+		mainFrame.getContentPane().add(jtab);
+		
+		//화면 보여주는것 
+		mainFrame.pack();
+		mainFrame.setVisible(true);
 	}
-	
-	private JPanel RestAreaPane; 							  // 휴게소 보여주는 패널 
+
+	private JPanel restareaPane; // 휴게소 보여주는 패널
 	TableSelectionDemo restTable = new TableSelectionDemo(); // 중앙?
-//	 ItemTopPanel RestTop = new ItemTopPanel(); 			 // 상단 ->검색과 상세보기 버튼을 가진 패널
+	RestTopPanel restTop = new RestTopPanel(); // 상단 ->검색과 상세보기 버튼을 가진 패널
 
 	private void setupRestPane() {
 		// TODO Auto-generated method stub
-		
-		RestAreaPane = new JPanel(new BorderLayout());
+
+		restareaPane = new JPanel(new BorderLayout());
+
 		restTable.tableTitle = "RestArea";
-		restTable.addComponentsToPane(RestMgr.getInstance());
-		RestAreaPane.add(restTable, BorderLayout.CENTER);
+		restTable.addComponentsToPane(RestMgr.getInstance()); // RestMgr에서의 싱글톤
+//		restTop.setupTopPane(restTable);
 		
+		restareaPane.add(restTop, BorderLayout.NORTH);
+		restareaPane.add(restTable, BorderLayout.CENTER);
 	}
 
-	 			
+	private JPanel pathPane; // 휴게소 보여주는 패널
+	TableSelectionDemo pathTable = new TableSelectionDemo(); // 중앙?
+//	RestTopPanel restTop = new RestTopPanel(); // 상단 ->검색과 상세보기 버튼을 가진 패널
+	
 	private void setupPathPane() {
 		// TODO Auto-generated method stub
-
+		pathPane = new JPanel(new BorderLayout());
+		
+		pathTable.tableTitle = "path";
+		pathTable.addComponentsToPane(PathMgr.getInstance());
+		pathPane.add(pathTable, BorderLayout.CENTER);
+		
 	}
-
-	
 
 }

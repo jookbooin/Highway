@@ -17,7 +17,7 @@ public class HighWay {
 	
 	static int restnum = 0;
 	public static Manager<RestArea> restMgr = new Manager<>();
-	static Manager<Path> pathMgr = new Manager<>();
+	public static Manager<Path> pathMgr = new Manager<>();
 	static Manager<Pathlist> makeMgr = new Manager<>();
 
 	public void run() {

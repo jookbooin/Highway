@@ -3,26 +3,28 @@ package Highway_mgr;
 import java.util.List;
 
 import Map.HighWay;
-import Map.RestArea;
+import Map.Path;
 import facade.DataEngineInterface;
 
-public class RestMgr implements DataEngineInterface<RestArea> {
-	private static RestMgr mgr = null;
-	private RestMgr() {}
-	public static RestMgr getInstance() {
+public class PathMgr implements DataEngineInterface<Path> {
+	
+	private static PathMgr mgr = null;
+	private PathMgr() {}
+	public static PathMgr getInstance() {
 		if (mgr == null)
-			mgr = new RestMgr();
+			mgr = new PathMgr();
 		return mgr;
 	}
+	private String[] headers = {"번호","출발", "목적지", "시작IC","종료IC"};
 	
-	private String[] headers = {"노선", "휴게소명", "전화번호"};
 	@Override
 	public int getColumnCount() {
-		//
+		// TODO Auto-generated method stub
 		return headers.length;
 	}
 	@Override
 	public String[] getColumnNames() {
+		// TODO Auto-generated method stub
 		return headers;
 	}
 	@Override
@@ -31,9 +33,9 @@ public class RestMgr implements DataEngineInterface<RestArea> {
 		
 	}
 	@Override
-	public List<RestArea> search(String kwd) {
+	public List<Path> search(String kwd) {
 		// TODO Auto-generated method stub
-		return HighWay.restMgr.findAll(kwd);
+		return  HighWay.pathMgr.findAll(kwd);
 	}
 	@Override
 	public void addNewItem(String[] uiTexts) {
@@ -50,6 +52,4 @@ public class RestMgr implements DataEngineInterface<RestArea> {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 }
