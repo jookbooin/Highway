@@ -80,22 +80,6 @@ public class Pathlist implements Manageable {
 		printAllrest();
 	}
 
-	@Override
-	public boolean matches(String kwd) {
-
-		return false;
-	}
-
-	@Override
-	public boolean matches(String[] kwdArr) {
-		
-		for (String kwd : kwdArr) {
-
-		}
-		return false;
-
-	}
-
 	void printPathlist() {
 		indent();
 		System.out.printf("[°æ·Î%s]:", pathlistnum);
@@ -176,5 +160,17 @@ public class Pathlist implements Manageable {
 
 	void indent() {
 		System.out.print("    ");
+	}
+
+	@Override
+	public boolean matches(String kwd) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean matches(String[] kwdArr) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

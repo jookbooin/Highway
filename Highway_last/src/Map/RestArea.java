@@ -3,9 +3,10 @@ package Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import facade.UIData;
 import mgr.Manageable;
 
-public class RestArea implements Manageable {
+public class RestArea implements Manageable, UIData {
 
 	int num; // 전체 restArea의 개수를 알기위해서
 	int pathnum; // 경로 생성했을때 번호
@@ -77,29 +78,34 @@ public class RestArea implements Manageable {
 
 	@Override
 	public boolean matches(String kwd) {
-		if (waytype.equals(kwd))
+		if (waytype.contains(kwd))			//""가지면 초기화
 			return true;
-		if (restname.equals(kwd))
-			return true;
-		if (electric.equals(kwd))
-			return true;
-		if (hydrogen.equals(kwd))
-			return true;
-		if (menu.equals(kwd))
-			return true;
-		if (("" + gasoline).equals(kwd))
-			return true;
-		if (("" + diesel).equals(kwd))
-			return true;
-		if (("" + lpg).equals(kwd))
-			return true;
-		for (String s : faclist) // 한개라도 있으면 true
-			if (s.equals(kwd))
+		if (kwd.length() >= 2) {
+			if (waytype.equals(kwd))
 				return true;
-		for (String s : foodlist)// 한개라도 있으면 true
-			if (s.equals(kwd))
+			if (restname.equals(kwd))
 				return true;
-
+			if (number.equals(kwd))
+				return true;
+			if (electric.equals(kwd))
+				return true;
+			if (hydrogen.equals(kwd))
+				return true;
+			if (menu.equals(kwd))
+				return true;
+			if (("" + gasoline).equals(kwd))
+				return true;
+			if (("" + diesel).equals(kwd))
+				return true;
+			if (("" + lpg).equals(kwd))
+				return true;
+			for (String s : faclist) // 한개라도 있으면 true
+				if (s.equals(kwd))
+					return true;
+			for (String s : foodlist)// 한개라도 있으면 true
+				if (s.equals(kwd))
+					return true;
+		}
 		return false;
 	}
 
@@ -112,6 +118,26 @@ public class RestArea implements Manageable {
 		return false;
 	}
 
+	@Override
+	public void set(Object[] uitexts) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String[] getUiTexts() {
+		// TODO Auto-generated method stub
+		String[] texts = new String[5];
+		texts[0] = waytype;
+		texts[1] = restname;
+		texts[2] = number;
+		return texts;
+	}
+
+//
+//
+//
+	
 	public void printname() {
 		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);
 	}
@@ -147,4 +173,5 @@ public class RestArea implements Manageable {
 	void indent() {
 		System.out.print("  ");
 	}
+
 }

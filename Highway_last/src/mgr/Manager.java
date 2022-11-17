@@ -3,6 +3,7 @@ package mgr;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Manager<T extends Manageable> {
@@ -59,6 +60,15 @@ public class Manager<T extends Manageable> {
 			}
 		}
 		return null;
+	}
+	
+	//찾은 다음 list로 내보냄?
+	public List<T> findAll(String kwd) {
+		List<T> results = new ArrayList<>();
+		for (T m: mlist)
+			if (m.matches(kwd))
+				results.add(m);
+		return results;
 	}
 
 //	public T search() {
