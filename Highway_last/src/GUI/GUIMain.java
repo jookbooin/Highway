@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import Highway_mgr.PathMgr;
+import Highway_mgr.PathlistMgr;
 import Highway_mgr.RestMgr;
 import Map.HighWay;
 
@@ -48,8 +49,8 @@ public class GUIMain {
 		
 		JTabbedPane jtab = new JTabbedPane();
 		
-		setupRestPane();
-		setupPathPane();
+		setupRestPane();   // 휴게소 목록 보여주는 화면
+		setupPathPane();   // 경로 + 리스트 보여주는 화면 
 		
 		// 탭을 생성하고 두개 패널을 추가한다.
 		jtab.add("휴게소", restareaPane);
@@ -73,7 +74,7 @@ public class GUIMain {
 
 		restTable.tableTitle = "RestArea";
 		restTable.addComponentsToPane(RestMgr.getInstance()); // RestMgr에서의 싱글톤
-//		restTop.setupTopPane(restTable);
+		restTop.setupTopPane(restTable);
 		
 		restareaPane.add(restTop, BorderLayout.NORTH);
 		restareaPane.add(restTable, BorderLayout.CENTER);
@@ -81,7 +82,7 @@ public class GUIMain {
 
 	private JPanel pathPane; // 휴게소 보여주는 패널
 	TableSelectionDemo pathTable = new TableSelectionDemo(); // 중앙?
-//	RestTopPanel restTop = new RestTopPanel(); // 상단 ->검색과 상세보기 버튼을 가진 패널
+	PathlistTable pathlisttable = new PathlistTable(); // 상단 ->검색과 상세보기 버튼을 가진 패널
 	
 	private void setupPathPane() {
 		// TODO Auto-generated method stub
@@ -90,7 +91,13 @@ public class GUIMain {
 		pathTable.tableTitle = "path";
 		pathTable.addComponentsToPane(PathMgr.getInstance());
 		pathPane.add(pathTable, BorderLayout.CENTER);
-		
+	
+//		JPanel bottom = new JPanel();
+//		pathTable.tableTitle = "pathlist";
+//		pathTable.addComponentsToPane(PathlistMgr.getInstance());
+//		
+//		bottom.add(pathlisttable , BorderLayout.CENTER);
+//		pathPane.add(bottom,BorderLayout.SOUTH);
 	}
 
 }

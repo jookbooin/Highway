@@ -71,6 +71,10 @@ public class Manager<T extends Manageable> {
 		return results;
 	}
 
+	public static void indent() {
+		System.out.print("    ");
+	}
+
 //	public T search() {
 //		String kwd = null;
 //		String[] kwdArr;

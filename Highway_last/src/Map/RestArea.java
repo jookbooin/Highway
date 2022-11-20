@@ -3,13 +3,14 @@ package Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Highway_mgr.RestMgr;
 import facade.UIData;
 import mgr.Manageable;
 
 public class RestArea implements Manageable, UIData {
-
-	int num; // 전체 restArea의 개수를 알기위해서
-	int pathnum; // 경로 생성했을때 번호
+	int  guinum=0;
+	int  num; // 전체 restArea의 개수를 알기위해서
+	int pathnum = HighWay.restnum; // 경로 생성했을때 번호 - GUI 표시용도
 	String waytype;
 	String restname;
 	String number;
@@ -128,9 +129,11 @@ public class RestArea implements Manageable, UIData {
 	public String[] getUiTexts() {
 		// TODO Auto-generated method stub
 		String[] texts = new String[5];
-		texts[0] = waytype;
-		texts[1] = restname;
-		texts[2] = number;
+		
+		texts[0] = ""+(pathnum+1);
+		texts[1] = waytype;
+		texts[2] = restname;
+		texts[3] = number;
 		return texts;
 	}
 

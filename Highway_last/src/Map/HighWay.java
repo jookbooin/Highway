@@ -6,7 +6,7 @@ import mgr.Factory;
 import mgr.Manager;
 
 public class HighWay {
-
+	
 	private static HighWay highway = null;
 	private HighWay() {}
 	public static HighWay getInstance() {
@@ -18,7 +18,7 @@ public class HighWay {
 	static int restnum = 0;
 	public static Manager<RestArea> restMgr = new Manager<>();
 	public static Manager<Path> pathMgr = new Manager<>();
-	static Manager<Pathlist> makeMgr = new Manager<>();
+	public static Manager<Pathlist> makeMgr = new Manager<>();
 
 	public void run() {
 		restMgr.readAll("restarea.txt", new Factory<RestArea>() {
@@ -47,16 +47,12 @@ public class HighWay {
 
 		pathMgr.printAll();
 
-//		System.out.println("\n=================경로 검색 =================");
-//		System.out.println("pathMgr");
-//		Pathlist selectPath = makeMgr.mlist.get(0);
-//		System.out.print(selectPath.pathID + " " + selectPath.pathlistnum);
-		
-//		selectPath.search();///경로 휴게소내에서 검색 
+		System.out.println("\n=================경로 검색 =================");
+		System.out.println("pathMgr");
+		Pathlist selectPath = makeMgr.mlist.get(0);
+		System.out.print(selectPath.pathID + " " + selectPath.pathlistnum);
+		selectPath.search();///경로 휴게소내에서 검색 
 //		selectPath.search();
-
-
-
 	}
 
 	public static void main(String[] args) {

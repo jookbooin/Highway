@@ -9,7 +9,7 @@ import mgr.Manageable;
 //이스나 클래스로 제공
 
 public interface DataEngineInterface<T extends Manageable> {
-	// 이 매니저가 관리하는 데이터를 테이블에 보여주기 위해 
+		// 이 매니저가 관리하는 데이터를 테이블에 보여주기 위해 
 		// 열제목의 개수와 배열을 반환. 필요한 열의 개수만큼 배열이 반환됨
 		int getColumnCount();
 		String[] getColumnNames();
