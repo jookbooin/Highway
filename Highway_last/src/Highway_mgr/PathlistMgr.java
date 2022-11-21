@@ -1,8 +1,9 @@
 package Highway_mgr;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import Map.HighWay;
+import Map.Path;
 import Map.Pathlist;
 import facade.DataEngineInterface;
 
@@ -10,21 +11,25 @@ public class PathlistMgr implements DataEngineInterface<Pathlist>{
 
 	private static PathlistMgr mgr = null;
 
-	private PathlistMgr() {
-	}
-
+	private PathlistMgr() {}
 	public static PathlistMgr getInstance() {
 		if (mgr == null)
 			mgr = new PathlistMgr();
 		return mgr;
 	}
+	
+	List<Pathlist> mylist;
+	public void setPath(Path path) {
+		// TODO Auto-generated method stub
+		mylist = path.pathlist;
+	}
 
-	private String[] headers = { "번호", "출발", "목적지", "종류" };
+	private String[] headers = {"경로 번호", "출발", "목적지", "종류" };
 	
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return headers.length;
 	}
 
 	@Override
@@ -41,8 +46,11 @@ public class PathlistMgr implements DataEngineInterface<Pathlist>{
 
 	@Override
 	public List<Pathlist> search(String kwd) {
-		// TODO Auto-generated method stub
-		return HighWay.makeMgr.findAll(kwd);
+//		List<Pathlist> result = new ArrayList<>();
+//		for(Pathlist pl : mylist)
+//			result.add(pl);
+//		return result;
+		return mylist;
 	}
 
 	@Override
@@ -59,8 +67,9 @@ public class PathlistMgr implements DataEngineInterface<Pathlist>{
 
 	@Override
 	public void remove(String kwd) {
-		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }

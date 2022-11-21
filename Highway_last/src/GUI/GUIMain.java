@@ -1,7 +1,9 @@
 package GUI;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -55,7 +57,6 @@ public class GUIMain {
 		// 탭을 생성하고 두개 패널을 추가한다.
 		jtab.add("휴게소", restareaPane);
 		jtab.add("경로", pathPane);
-		
 		mainFrame.getContentPane().add(jtab);
 		
 		//화면 보여주는것 
@@ -69,13 +70,11 @@ public class GUIMain {
 
 	private void setupRestPane() {
 		// TODO Auto-generated method stub
-
 		restareaPane = new JPanel(new BorderLayout());
 
 		restTable.tableTitle = "RestArea";
 		restTable.addComponentsToPane(RestMgr.getInstance()); // RestMgr에서의 싱글톤
 		restTop.setupTopPane(restTable);
-		
 		restareaPane.add(restTop, BorderLayout.NORTH);
 		restareaPane.add(restTable, BorderLayout.CENTER);
 	}
@@ -92,12 +91,12 @@ public class GUIMain {
 		pathTable.addComponentsToPane(PathMgr.getInstance());
 		pathPane.add(pathTable, BorderLayout.CENTER);
 	
-//		JPanel bottom = new JPanel();
-//		pathTable.tableTitle = "pathlist";
-//		pathTable.addComponentsToPane(PathlistMgr.getInstance());
-//		
-//		bottom.add(pathlisttable , BorderLayout.CENTER);
-//		pathPane.add(bottom,BorderLayout.SOUTH);
+		JPanel bottom = new JPanel();					//panel 안에 pathlisttalbe (jtable) 위에 올림
+		pathlisttable.tableTitle = "pathlist";
+		pathlisttable.addComponentsToPane(PathlistMgr.getInstance());
+		
+		bottom.add(pathlisttable , BorderLayout.CENTER);
+		pathPane.add(bottom,BorderLayout.SOUTH);
 	}
 
 }

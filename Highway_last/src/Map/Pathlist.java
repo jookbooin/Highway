@@ -49,8 +49,8 @@ public class Pathlist implements Manageable, UIData {
 
 	@Override
 	public boolean matches(String kwd) {
-//		if (kwd.length() == 0)
-//			return true;
+		if (kwd.length() == 0)
+			return true;
 		if(pathID.equals(kwd))
 			return true;
 		
@@ -60,7 +60,7 @@ public class Pathlist implements Manageable, UIData {
 	@Override
 	public boolean matches(String[] kwdArr) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	void printPathlist() {
@@ -92,7 +92,8 @@ public class Pathlist implements Manageable, UIData {
 
 	@Override
 	public String[] getUiTexts() {
-		String[] texts = new String[4];
+		String[] texts = new String[5];
+	
 		texts[0] = pathlistnum;
 		texts[1] = HighWay.pathMgr.find(pathID).start;
 		texts[2] = HighWay.pathMgr.find(pathID).arrive;

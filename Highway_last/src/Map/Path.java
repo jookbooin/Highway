@@ -14,7 +14,7 @@ public class Path implements Manageable , UIData{
 	String arriveIC;
 	String arrive;
 
-	ArrayList<Pathlist> pathlist = new ArrayList<>();
+	public ArrayList<Pathlist> pathlist = new ArrayList<>();
 
 	void addPathlist(Pathlist pl) {
 		pathlist.add(pl);

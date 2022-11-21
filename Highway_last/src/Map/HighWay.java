@@ -18,7 +18,7 @@ public class HighWay {
 	static int restnum = 0;
 	public static Manager<RestArea> restMgr = new Manager<>();
 	public static Manager<Path> pathMgr = new Manager<>();
-	public static Manager<Pathlist> makeMgr = new Manager<>();
+	public static Manager<Pathlist> pathmakeMgr = new Manager<>();
 
 	public void run() {
 		restMgr.readAll("restarea.txt", new Factory<RestArea>() {
@@ -38,7 +38,7 @@ public class HighWay {
 		});
 		System.out.println("\n=================경로 종류 =================");
 
-		makeMgr.readAll("pathmake.txt", new Factory<Pathlist>() {
+		pathmakeMgr.readAll("pathmake.txt", new Factory<Pathlist>() {
 			@Override
 			public Pathlist create(Scanner scan) {
 				return new Pathlist();
@@ -46,12 +46,12 @@ public class HighWay {
 		});
 
 		pathMgr.printAll();
-
-		System.out.println("\n=================경로 검색 =================");
-		System.out.println("pathMgr");
-		Pathlist selectPath = makeMgr.mlist.get(0);
-		System.out.print(selectPath.pathID + " " + selectPath.pathlistnum);
-		selectPath.search();///경로 휴게소내에서 검색 
+//
+//		System.out.println("\n=================경로 검색 =================");
+//		System.out.println("pathMgr");
+//		Pathlist selectPath = pathmakeMgr.mlist.get(0);
+//		System.out.print(selectPath.pathID + " " + selectPath.pathlistnum);
+//		selectPath.search();///경로 휴게소내에서 검색 
 //		selectPath.search();
 	}
 

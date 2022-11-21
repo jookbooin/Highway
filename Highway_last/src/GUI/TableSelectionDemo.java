@@ -57,7 +57,7 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 		table = new JTable(tableModel);
 		ListSelectionModel rowSM = table.getSelectionModel();
 		rowSM.addListSelectionListener(this);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 400));
+		table.setPreferredScrollableViewportSize(new Dimension(500, 150));
 		table.setFillsViewportHeight(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
@@ -85,17 +85,17 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 
 	// 선택된 행이 변경되면 그 내용을 편집창으로 보냄
 	public void valueChanged(ListSelectionEvent e) {
-//        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-//        if (!lsm.isSelectionEmpty()) {
-//        	selectedIndex = lsm.getMinSelectionIndex();
-//        	String name = (String)tableModel.getValueAt(selectedIndex, 1);
-//        	// 아이템 테이블의 클릭은 텍스트 필드에 값을 보여주고
-//        	// 주문 테이블의 클릭은 장바구니의 값을 바꾼다
-//        	if (tableTitle.equals("item")) {
-//        		GUIMain.getInstance().itemTop.kwdTextField.setText(name);
-//        	} else if (tableTitle.equals("order")) {
-//        		GUIMain.getInstance().basketTable.loadData(""+selectedIndex);
-//        	}
-//        }
+        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+        if (!lsm.isSelectionEmpty()) {
+        	selectedIndex = lsm.getMinSelectionIndex();
+        	String name = (String)tableModel.getValueAt(selectedIndex, 2);
+        	// 아이템 테이블의 클릭은 텍스트 필드에 값을 보여주고
+        	// 주문 테이블의 클릭은 장바구니의 값을 바꾼다
+        	if (tableTitle.equals("RestArea")) {
+        		GUIMain.getInstance().restTop.kwdTextField.setText(name);
+        	} else if (tableTitle.equals("path")) {
+        		GUIMain.getInstance().pathlisttable.loadData(""+selectedIndex);
+        	}
+        }
 	}
 }

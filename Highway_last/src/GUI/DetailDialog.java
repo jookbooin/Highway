@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
+//휴게소 정보를 restpanel에서 보여주기 위해서 만든 상세페이지 
 public class DetailDialog extends javax.swing.JDialog {
 	
 	String[] itemDetails;

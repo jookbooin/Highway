@@ -18,6 +18,10 @@ public class PathMgr implements DataEngineInterface<Path> {
 			mgr = new PathMgr();
 		return mgr;
 	}
+	
+	public Path getPath(int index) {
+		return HighWay.pathMgr.mlist.get(index);
+	}
 
 	private String[] headers = { "번호", "출발", "목적지", "시작IC", "종료IC" };
 
@@ -62,4 +66,6 @@ public class PathMgr implements DataEngineInterface<Path> {
 		// TODO Auto-generated method stub
 
 	}
+
+
 }
