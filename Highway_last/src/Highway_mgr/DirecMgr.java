@@ -2,29 +2,28 @@ package Highway_mgr;
 
 import java.util.List;
 
-import Map.InnerRestlist;
-import Map.Pathlist;
-import Map.RestArea;
+import Map.HighWay;
+import Map.Directioin;
 import facade.DataEngineInterface;
 
-public class InnerRestlistMgr implements DataEngineInterface<RestArea> {
-	
-	private static InnerRestlistMgr mgr = null;
+public class DirecMgr implements DataEngineInterface<Directioin> {
 
-	private InnerRestlistMgr() {}
-	public static InnerRestlistMgr getInstance() {
+	private static DirecMgr mgr = null;
+
+	private DirecMgr() {
+	}
+
+	public static DirecMgr getInstance() {
 		if (mgr == null)
-			mgr = new InnerRestlistMgr();
+			mgr = new DirecMgr();
 		return mgr;
 	}
 	
-	public List<RestArea> mylist;
-	public void setrest(Pathlist pathlist) {
-		mylist = pathlist.restlist;
+	public Directioin getPath(int index) {
+		return HighWay.direcMgr.mlist.get(index);
 	}
-	
-	
-	private String[] headers = {"순서","노선","휴게소명","번호"};
+
+	private String[] headers = { "번호", "출발", "목적지", "시작IC", "종료IC" };
 
 	@Override
 	public int getColumnCount() {
@@ -41,33 +40,32 @@ public class InnerRestlistMgr implements DataEngineInterface<RestArea> {
 	@Override
 	public void readAll(String filename) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public List<RestArea> search(String kwd) {
+	public List<Directioin> search(String kwd) {
 		// TODO Auto-generated method stub
-		return mylist ;
+		return HighWay.direcMgr.findAll(kwd);
 	}
 
 	@Override
 	public void addNewItem(String[] uiTexts) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(String[] uiTexts) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void remove(String kwd) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
 
 }

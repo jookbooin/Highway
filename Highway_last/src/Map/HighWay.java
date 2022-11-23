@@ -17,8 +17,8 @@ public class HighWay {
 	
 	static int restnum = 0;
 	public static Manager<RestArea> restMgr = new Manager<>();
+	public static Manager<Directioin> direcMgr = new Manager<>();
 	public static Manager<Path> pathMgr = new Manager<>();
-	public static Manager<Pathlist> pathmakeMgr = new Manager<>();
 
 	public void run() {
 		restMgr.readAll("restarea.txt", new Factory<RestArea>() {
@@ -30,18 +30,18 @@ public class HighWay {
 		System.out.println("\n=================고속도로 종류 =================");
 		restMgr.printAll();
 
-		pathMgr.readAll("path.txt", new Factory<Path>() {
+		direcMgr.readAll("direction.txt", new Factory<Directioin>() {
 			@Override
-			public Path create(Scanner scan) {
-				return new Path();
+			public Directioin create(Scanner scan) {
+				return new Directioin();
 			}
 		});
 		System.out.println("\n=================경로 종류 =================");
 
-		pathmakeMgr.readAll("pathmake.txt", new Factory<Pathlist>() {
+		pathMgr.readAll("path.txt", new Factory<Path>() {
 			@Override
-			public Pathlist create(Scanner scan) {
-				return new Pathlist();
+			public Path create(Scanner scan) {
+				return new Path();
 			}
 		});
 
@@ -49,7 +49,7 @@ public class HighWay {
 //
 //		System.out.println("\n=================경로 검색 =================");
 //		System.out.println("pathMgr");
-//		Pathlist selectPath = pathmakeMgr.mlist.get(0);
+//		Path selectPath = pathMgr.mlist.get(0);
 //		System.out.print(selectPath.pathID + " " + selectPath.pathlistnum);
 //		selectPath.search();///경로 휴게소내에서 검색 
 //		selectPath.search();
