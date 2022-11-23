@@ -12,7 +12,7 @@ public class RestArea implements Manageable, UIData {
 	int  num; // 전체 restArea의 개수를 알기위해서
 	int pathnum = HighWay.restnum; // 경로 생성했을때 번호 - GUI 표시용도
 	String waytype;
-	String restname;
+	public String restname;
 	String number;
 	String menu;
 	String fac;

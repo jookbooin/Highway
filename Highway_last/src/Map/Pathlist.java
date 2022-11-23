@@ -1,5 +1,6 @@
 package Map;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -12,10 +13,11 @@ import mgr.Manager;
 public class Pathlist implements Manageable, UIData {
 
 	String pathID;
-	String pathlistnum;
+	public String pathlistnum;
 	Path path;
 	String rest;
-	InnerRestlist irl = new InnerRestlist();
+//	public InnerRestlist irl = new InnerRestlist(this);
+	public ArrayList<RestArea> restlist = new ArrayList<>();
 	String passrestname = "";
 
 	// 경로상 휴게소 전체
@@ -33,7 +35,7 @@ public class Pathlist implements Manageable, UIData {
 				break;
 			RestArea restarea = HighWay.restMgr.find(rest);
 
-			irl.restlist.add(restarea);
+			restlist.add(restarea);
 			restset.add(restarea.waytype);
 		}
 
@@ -49,8 +51,8 @@ public class Pathlist implements Manageable, UIData {
 
 	@Override
 	public boolean matches(String kwd) {
-		if (kwd.length() == 0)
-			return true;
+//		if (kwd.length() == 0)
+//			return true;
 		if(pathID.equals(kwd))
 			return true;
 		
@@ -76,12 +78,17 @@ public class Pathlist implements Manageable, UIData {
 	}
 
 	void printAllrest() {
-		irl.print();
+		for (RestArea ra : restlist) {
+			Manager.indent();
+			Manager.indent();
+			System.out.print((restlist.indexOf(ra) + 1) + ".");
+			ra.printname();
+		}
 		System.out.println();
 	}
 
 	void search() {
-		irl.search();
+//		irl.search();
 	}
 
 	@Override

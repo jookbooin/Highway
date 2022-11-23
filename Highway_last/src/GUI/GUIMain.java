@@ -3,10 +3,10 @@ package GUI;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import Highway_mgr.InnerRestlistMgr;
 import Highway_mgr.PathMgr;
 import Highway_mgr.PathlistMgr;
 import Highway_mgr.RestMgr;
@@ -81,7 +81,8 @@ public class GUIMain {
 
 	private JPanel pathPane; // 휴게소 보여주는 패널
 	TableSelectionDemo pathTable = new TableSelectionDemo(); // 중앙?
-	PathlistTable pathlisttable = new PathlistTable(); // 상단 ->검색과 상세보기 버튼을 가진 패널
+	PathlistTable pathlistTable = new PathlistTable(); // 상단 ->검색과 상세보기 버튼을 가진 패널
+	InnerlistTable innerlistTable = new InnerlistTable();
 	
 	private void setupPathPane() {
 		// TODO Auto-generated method stub
@@ -89,14 +90,22 @@ public class GUIMain {
 		
 		pathTable.tableTitle = "path";
 		pathTable.addComponentsToPane(PathMgr.getInstance());
-		pathPane.add(pathTable, BorderLayout.CENTER);
+		pathPane.add(pathTable, BorderLayout.NORTH);
 	
-		JPanel bottom = new JPanel();					//panel 안에 pathlisttalbe (jtable) 위에 올림
-		pathlisttable.tableTitle = "pathlist";
-		pathlisttable.addComponentsToPane(PathlistMgr.getInstance());
+		JPanel middle = new JPanel();					//panel 안에 pathlisttalbe (jtable) 위에 올림
+		pathlistTable.tableTitle = "pathlist";
+		pathlistTable.addComponentsToPane(PathlistMgr.getInstance());
 		
-		bottom.add(pathlisttable , BorderLayout.CENTER);
+		middle.add(pathlistTable , BorderLayout.CENTER);
+		pathPane.add(middle,BorderLayout.CENTER);
+		
+		JPanel bottom = new JPanel();
+		innerlistTable.tableTitle = "innerlist";
+		innerlistTable.addComponentsToPane(InnerRestlistMgr.getInstance());
+		bottom.add(innerlistTable , BorderLayout.CENTER);
 		pathPane.add(bottom,BorderLayout.SOUTH);
+		
+		
 	}
 
 }

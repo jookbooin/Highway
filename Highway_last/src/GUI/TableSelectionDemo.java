@@ -29,6 +29,9 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 	String tableTitle = null;
 	DataEngineInterface<?> dataMgr; // 엔진 쪽의 데이터를 관리하는 매니저 파사드 인터페이스
 
+	static int pathtableidx; // title : 'path' 눌렀을때 인덱스 저장
+	static int pathlisttableidx; // title : 'pathlist' 눌렀을때 인덱스 저장
+
 	public TableSelectionDemo() {
 		super(new BorderLayout());
 	}
@@ -57,16 +60,16 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 		table = new JTable(tableModel);
 		ListSelectionModel rowSM = table.getSelectionModel();
 		rowSM.addListSelectionListener(this);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 150));
+		table.setPreferredScrollableViewportSize(new Dimension(800, 100));
 		table.setFillsViewportHeight(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	// 매니저에서 검색된 객체들을 테이블에 보여준다. kwd가 ""면 모두 출력
 	void loadData(String kwd) {
-		List<?> result = dataMgr.search(kwd); // 매니저에서 검색결과를 가져옴
-		tableModel.setRowCount(0); // 현재 데이터모델의 행을 모두 지운다
-		for (Object m : result) // 한 행씩 추가함
+		List<?> result = dataMgr.search(kwd); // 매니저에서 검색결과(mylist)를 가져옴
+		tableModel.setRowCount(0); 			  // 현재 데이터모델의 행을 모두 지운다
+		for (Object m : result) 				  // 한 행씩 추가함
 			tableModel.addRow(((UIData) m).getUiTexts());
 	}
 
@@ -85,17 +88,38 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 
 	// 선택된 행이 변경되면 그 내용을 편집창으로 보냄
 	public void valueChanged(ListSelectionEvent e) {
-        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-        if (!lsm.isSelectionEmpty()) {
-        	selectedIndex = lsm.getMinSelectionIndex();
-        	String name = (String)tableModel.getValueAt(selectedIndex, 2);
-        	// 아이템 테이블의 클릭은 텍스트 필드에 값을 보여주고
-        	// 주문 테이블의 클릭은 장바구니의 값을 바꾼다
-        	if (tableTitle.equals("RestArea")) {
-        		GUIMain.getInstance().restTop.kwdTextField.setText(name);
-        	} else if (tableTitle.equals("path")) {
-        		GUIMain.getInstance().pathlisttable.loadData(""+selectedIndex);
-        	}
-        }
+		ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+		if (!lsm.isSelectionEmpty()) {
+			selectedIndex = lsm.getMinSelectionIndex();
+
+			// index
+			System.out.println(selectedIndex); // ->...? 누르는 layout의 인덱스만 가져오는듯 -> 연관관계 x
+
+			String name = (String) tableModel.getValueAt(selectedIndex, 2);
+			// 아이템 테이블의 클릭은 텍스트 필드에 값을 보여주고
+			// 주문 테이블의 클릭은 장바구니의 값을 바꾼다
+
+			if (tableTitle.equals("RestArea")) {
+				GUIMain.getInstance().restTop.kwdTextField.setText(name);
+			} else if (tableTitle.equals("path")) {
+				pathtableidx = selectedIndex;
+				pathlisttableidx = 0; // 초기화
+				GUIMain.getInstance().pathlistTable.loadData("" + pathtableidx);
+				GUIMain.getInstance().innerlistTable.loadData(""+pathlisttableidx);
+				
+				System.out.println("(1)pathtableidx: " + pathtableidx);
+				System.out.println("(1)pathlisttableidx: " + pathlisttableidx);
+				System.out.println();
+
+			} else if (tableTitle.equals("pathlist")) {
+				pathlisttableidx = selectedIndex;
+        		GUIMain.getInstance().innerlistTable.loadData(""+pathlisttableidx);
+
+				System.out.println("(2)pathtableidx: " + pathtableidx);
+				System.out.println("(2)pathlisttableidx: " + pathlisttableidx);
+				System.out.println();
+				
+			}
+		}
 	}
 }

@@ -1,6 +1,5 @@
 package Highway_mgr;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import Map.Path;
@@ -18,12 +17,19 @@ public class PathlistMgr implements DataEngineInterface<Pathlist>{
 		return mgr;
 	}
 	
-	List<Pathlist> mylist;
+	
+	public List<Pathlist> mylist;
 	public void setPath(Path path) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubf
 		mylist = path.pathlist;
 	}
-
+	
+	public Pathlist getPathlist(Path path , int index) {
+		
+		return path.pathlist.get(index);     // 끌어온 <Path> 의 pathlist에서 <Pathlist>를 인덱스를 통해 가져옴? 
+	}
+	
+	
 	private String[] headers = {"경로 번호", "출발", "목적지", "종류" };
 	
 	@Override
@@ -69,6 +75,7 @@ public class PathlistMgr implements DataEngineInterface<Pathlist>{
 	public void remove(String kwd) {
 		
 	}
+	
 
 	
 

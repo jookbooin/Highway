@@ -8,7 +8,7 @@ import mgr.Manageable;
 
 public class Path implements Manageable , UIData{
 
-	String pathID;
+	public String pathID;
 	String start;
 	String startIC;
 	String arriveIC;

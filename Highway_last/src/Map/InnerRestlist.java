@@ -9,10 +9,12 @@ import facade.UIData;
 import mgr.Manageable;
 import mgr.Manager;
 
-public class InnerRestlist implements Manageable ,UIData {
-	ArrayList<RestArea> restlist = new ArrayList<>();
+public class InnerRestlist  implements Manageable ,UIData {
+	Pathlist pathlist;
+	public ArrayList<RestArea> restlist = new ArrayList<>();
 	ArrayList<RestArea> sublist;
 
+	
 	void search() {
 //		System.out.println("휴게소이름 입력");
 //		RestArea currest = HighWay.restMgr.search();
@@ -134,7 +136,13 @@ public class InnerRestlist implements Manageable ,UIData {
 
 	@Override
 	public String[] getUiTexts() {
-		// TODO Auto-generated method stub
+//		String[] texts = new String[5];
+//		
+//		texts[0] = pathlistnum;
+//		texts[1] = HighWay.pathMgr.find(pathID).start;
+//		texts[2] = HighWay.pathMgr.find(pathID).arrive;
+//		texts[3] = passrestname;
+//		return texts;
 		return null;
 	}
 
