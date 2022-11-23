@@ -2,35 +2,29 @@ package Highway_mgr;
 
 import java.util.List;
 
-import Map.Directioin;
 import Map.Path;
+import Map.RestArea;
 import facade.DataEngineInterface;
 
-public class PathMgr implements DataEngineInterface<Path>{
+public class RestlistMgr implements DataEngineInterface<RestArea> {
+	
+	private static RestlistMgr mgr = null;
 
-	private static PathMgr mgr = null;
-
-	private PathMgr() {}
-	public static PathMgr getInstance() {
+	private RestlistMgr() {}
+	public static RestlistMgr getInstance() {
 		if (mgr == null)
-			mgr = new PathMgr();
+			mgr = new RestlistMgr();
 		return mgr;
 	}
 	
-	
-	public List<Path> mylist;
-	public void setPath(Directioin path) {
-		mylist = path.pathlist;
-	}
-	
-	public Path getPathlist(Directioin path , int index) {
-		
-		return path.pathlist.get(index);     // 끌어온 <Path> 의 pathlist에서 <Pathlist>를 인덱스를 통해 가져옴? 
+	public List<RestArea> mylist;
+	public void setrest(Path path) {
+		mylist = path.restlist;
 	}
 	
 	
-	private String[] headers = {"경로 번호", "출발", "목적지", "종류" };
-	
+	private String[] headers = {"순서","노선","휴게소명","번호"};
+
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
@@ -50,12 +44,9 @@ public class PathMgr implements DataEngineInterface<Path>{
 	}
 
 	@Override
-	public List<Path> search(String kwd) {
-//		List<Pathlist> result = new ArrayList<>();
-//		for(Pathlist pl : mylist)
-//			result.add(pl);
-//		return result;
-		return mylist;
+	public List<RestArea> search(String kwd) {
+		// TODO Auto-generated method stub
+		return mylist ;
 	}
 
 	@Override
@@ -72,10 +63,10 @@ public class PathMgr implements DataEngineInterface<Path>{
 
 	@Override
 	public void remove(String kwd) {
+		// TODO Auto-generated method stub
 		
 	}
 	
-
 	
 
 }

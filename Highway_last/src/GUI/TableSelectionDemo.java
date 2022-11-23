@@ -27,10 +27,10 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 	DefaultTableModel tableModel;
 	int selectedIndex = -1; // 테이블에서 선택된 행의 인덱스를 가질 변수
 	String tableTitle = null;
-	DataEngineInterface<?> dataMgr; // 엔진 쪽의 데이터를 관리하는 매니저 파사드 인터페이스
+	DataEngineInterface<?> dataMgr; 			// 엔진 쪽의 데이터를 관리하는 매니저 파사드 인터페이스
 
-	static int pathtableidx; // title : 'path' 눌렀을때 인덱스 저장
-	static int pathlisttableidx; // title : 'pathlist' 눌렀을때 인덱스 저장
+	static int directableidx; 					// title : 'direc' 눌렀을때 인덱스 저장
+	static int pathtableidx; 					// title : 'path' 눌렀을때 인덱스 저장
 
 	public TableSelectionDemo() {
 		super(new BorderLayout());
@@ -60,7 +60,7 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 		table = new JTable(tableModel);
 		ListSelectionModel rowSM = table.getSelectionModel();
 		rowSM.addListSelectionListener(this);
-		table.setPreferredScrollableViewportSize(new Dimension(800, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(800, 150));
 		table.setFillsViewportHeight(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
@@ -101,22 +101,22 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 
 			if (tableTitle.equals("RestArea")) {
 				GUIMain.getInstance().restTop.kwdTextField.setText(name);
-			} else if (tableTitle.equals("path")) {
-				pathtableidx = selectedIndex;
-				pathlisttableidx = 0; // 초기화
-				GUIMain.getInstance().pathlistTable.loadData("" + pathtableidx);
-				GUIMain.getInstance().innerlistTable.loadData(""+pathlisttableidx);
+			} else if (tableTitle.equals("direc")) {
+				directableidx = selectedIndex;
+				pathtableidx = 0; // 초기화
+				GUIMain.getInstance().pathTable.loadData("" + directableidx);
+				GUIMain.getInstance().restlistTable.loadData(""+pathtableidx);
 				
-				System.out.println("(1)pathtableidx: " + pathtableidx);
-				System.out.println("(1)pathlisttableidx: " + pathlisttableidx);
+				System.out.println("(1)pathtableidx: " + directableidx);
+				System.out.println("(1)pathlisttableidx: " + pathtableidx);
 				System.out.println();
 
-			} else if (tableTitle.equals("pathlist")) {
-				pathlisttableidx = selectedIndex;
-        		GUIMain.getInstance().innerlistTable.loadData(""+pathlisttableidx);
+			} else if (tableTitle.equals("path")) {
+				pathtableidx = selectedIndex;
+        		GUIMain.getInstance().restlistTable.loadData(""+pathtableidx);
 
-				System.out.println("(2)pathtableidx: " + pathtableidx);
-				System.out.println("(2)pathlisttableidx: " + pathlisttableidx);
+				System.out.println("(2)pathtableidx: " + directableidx);
+				System.out.println("(2)pathlisttableidx: " + pathtableidx);
 				System.out.println();
 				
 			}

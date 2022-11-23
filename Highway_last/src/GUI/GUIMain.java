@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import Highway_mgr.InnerRestlistMgr;
+import Highway_mgr.RestlistMgr;
+import Highway_mgr.DirecMgr;
 import Highway_mgr.PathMgr;
-import Highway_mgr.PathlistMgr;
 import Highway_mgr.RestMgr;
 import Map.HighWay;
 
@@ -51,12 +51,12 @@ public class GUIMain {
 		
 		JTabbedPane jtab = new JTabbedPane();
 		
-		setupRestPane();   // 휴게소 목록 보여주는 화면
-		setupPathPane();   // 경로 + 리스트 보여주는 화면 
+		setupRestPane();   										// 휴게소 목록 보여주는 화면
+		setupPathPane();   										// 경로 + 리스트 보여주는 화면 
 		
 		// 탭을 생성하고 두개 패널을 추가한다.
 		jtab.add("휴게소", restareaPane);
-		jtab.add("경로", pathPane);
+		jtab.add("경로", direcPane);
 		mainFrame.getContentPane().add(jtab);
 		
 		//화면 보여주는것 
@@ -64,9 +64,9 @@ public class GUIMain {
 		mainFrame.setVisible(true);
 	}
 
-	private JPanel restareaPane; // 휴게소 보여주는 패널
+	private JPanel restareaPane; 							  // 휴게소 보여주는 패널
 	TableSelectionDemo restTable = new TableSelectionDemo(); // 중앙?
-	RestTopPanel restTop = new RestTopPanel(); // 상단 ->검색과 상세보기 버튼을 가진 패널
+	RestTopPanel restTop = new RestTopPanel(); 				// 상단 ->검색과 상세보기 버튼을 가진 패널
 
 	private void setupRestPane() {
 		// TODO Auto-generated method stub
@@ -79,31 +79,31 @@ public class GUIMain {
 		restareaPane.add(restTable, BorderLayout.CENTER);
 	}
 
-	private JPanel pathPane; // 휴게소 보여주는 패널
-	TableSelectionDemo pathTable = new TableSelectionDemo(); // 중앙?
-	PathlistTable pathlistTable = new PathlistTable(); // 상단 ->검색과 상세보기 버튼을 가진 패널
-	InnerlistTable innerlistTable = new InnerlistTable();
+	private JPanel direcPane; // 경로, 휴게소 보여주는 패널
+	TableSelectionDemo direcTable = new TableSelectionDemo(); 	// 중앙?
+	PathTable pathTable = new PathTable();		    // 상단 ->검색과 상세보기 버튼을 가진 패널
+	RestlistTable restlistTable = new RestlistTable();
 	
 	private void setupPathPane() {
 		// TODO Auto-generated method stub
-		pathPane = new JPanel(new BorderLayout());
+		direcPane = new JPanel(new BorderLayout());
 		
+		direcTable.tableTitle = "direc";
+		direcTable.addComponentsToPane(DirecMgr.getInstance());
+		direcPane.add(direcTable, BorderLayout.NORTH);
+	
+		JPanel middle = new JPanel();						//panel 안에 pathtalbe (jtable) 위에 올림
 		pathTable.tableTitle = "path";
 		pathTable.addComponentsToPane(PathMgr.getInstance());
-		pathPane.add(pathTable, BorderLayout.NORTH);
-	
-		JPanel middle = new JPanel();					//panel 안에 pathlisttalbe (jtable) 위에 올림
-		pathlistTable.tableTitle = "pathlist";
-		pathlistTable.addComponentsToPane(PathlistMgr.getInstance());
 		
-		middle.add(pathlistTable , BorderLayout.CENTER);
-		pathPane.add(middle,BorderLayout.CENTER);
+		middle.add(pathTable , BorderLayout.CENTER);
+		direcPane.add(middle,BorderLayout.CENTER);
 		
 		JPanel bottom = new JPanel();
-		innerlistTable.tableTitle = "innerlist";
-		innerlistTable.addComponentsToPane(InnerRestlistMgr.getInstance());
-		bottom.add(innerlistTable , BorderLayout.CENTER);
-		pathPane.add(bottom,BorderLayout.SOUTH);
+		restlistTable.tableTitle = "restlist";
+		restlistTable.addComponentsToPane(RestlistMgr.getInstance());
+		bottom.add(restlistTable , BorderLayout.CENTER);
+		direcPane.add(bottom,BorderLayout.SOUTH);
 		
 		
 	}

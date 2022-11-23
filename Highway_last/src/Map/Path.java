@@ -1,94 +1,110 @@
 package Map;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
 import facade.UIData;
 import mgr.Manageable;
+import mgr.Manager;
 
-public class Path implements Manageable , UIData{
+public class Path implements Manageable, UIData {
 
-	public String pathID;
-	String start;
-	String startIC;
-	String arriveIC;
-	String arrive;
+	String pathID;
+	public String pathnum;
+	Directioin direc;
+	String rest;
+//	public InnerRestlist irl = new InnerRestlist(this);
+	public ArrayList<RestArea> restlist = new ArrayList<>();
+	String highwayname = "";
 
-	public ArrayList<Pathlist> pathlist = new ArrayList<>();
-
-	void addPathlist(Pathlist pl) {
-		pathlist.add(pl);
-	}
+	// 경로상 휴게소 전체
+	Set<String> restset = new HashSet<>(); // 경로에 지나는 고속도로들
 
 	@Override
 	public void read(Scanner scan) {
-		pathID = scan.next();
-		start = scan.next();
-		arrive = scan.next();
-		startIC = scan.next();
-		arriveIC = scan.next();
 
+		pathID = scan.next();
+		pathnum = scan.next();
+
+		while (true) {
+			rest = scan.next();
+			if (rest.equals("0"))
+				break;
+			RestArea restarea = HighWay.restMgr.find(rest);
+
+			restlist.add(restarea);
+			restset.add(restarea.waytype);
+		}
+
+		direc = HighWay.direcMgr.find(pathID);
+		direc.addPathlist(this);
 	}
 
 	@Override
 	public void print() {
-		printIC();
-		printlist();
+		printPathlist();
+		printAllrest();
 	}
 
 	@Override
 	public boolean matches(String kwd) {
-		if (kwd.length() == 0)
+//		if (kwd.length() == 0)
+//			return true;
+		if(pathID.equals(kwd))
 			return true;
-		if (pathID.equals(kwd))
-			return true;
-		if (start.equals(kwd))
-			return true;
-		if (startIC.equals(kwd))
-			return true;
-		if (arriveIC.equals(kwd))
-			return true;
-		if (arrive.equals(kwd))
-			return true;
+		
 		return false;
 	}
 
 	@Override
 	public boolean matches(String[] kwdArr) {
-		for (String kwd : kwdArr) {
-			if (matches(kwd)) {
-				return true;
-			}
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	void printPathlist() {
+		Manager.indent();
+		System.out.printf("[경로%s]:", pathnum);
+
+		Iterator<String> it = restset.iterator();
+		while (it.hasNext()) {
+			highwayname += it.next() + " ";
+
 		}
-		return false;
+		System.out.println(highwayname);
 	}
 
-	void printIC() {
-		System.out.format("[%s->%s] 시작IC:%sIC 종료IC:%sIC\n", start, arrive, startIC, arriveIC);
-	}
-
-	void printlist() {
-		for (Pathlist pl : pathlist)
-			pl.print();
+	void printAllrest() {
+		for (RestArea ra : restlist) {
+			Manager.indent();
+			Manager.indent();
+			System.out.print((restlist.indexOf(ra) + 1) + ".");
+			ra.printname();
+		}
 		System.out.println();
+	}
+
+	void search() {
+//		irl.search();
 	}
 
 	@Override
 	public void set(Object[] uitexts) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public String[] getUiTexts() {        //"번호","출발", "목적지", "시작IC","종료IC"
-		// TODO Auto-generated method stub
+	public String[] getUiTexts() {
 		String[] texts = new String[5];
-		texts[0] = pathID;
-		texts[1] = start;
-		texts[2] = arrive;
-		texts[3] = startIC;
-		texts[4] = arriveIC;
+	
+		texts[0] = pathnum;
+		texts[1] = HighWay.direcMgr.find(pathID).start;
+		texts[2] = HighWay.direcMgr.find(pathID).arrive;
+		texts[3] = highwayname;
 		return texts;
 	}
-
 }
