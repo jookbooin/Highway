@@ -6,7 +6,7 @@ import java.util.Scanner;
 import facade.UIData;
 import mgr.Manageable;
 
-public class Directioin implements Manageable , UIData{
+public class Direction implements Manageable , UIData{
 
 	public String pathID;
 	String start;

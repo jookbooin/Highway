@@ -34,6 +34,7 @@ public class RestArea implements Manageable, UIData {
 	RestArea() {
 	}
 
+	
 	@Override
 	public void read(Scanner scan) {
 		HighWay.restnum++;

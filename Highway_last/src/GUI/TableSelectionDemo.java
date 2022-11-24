@@ -31,6 +31,7 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 
 	static int directableidx; 					// title : 'direc' 눌렀을때 인덱스 저장
 	static int pathtableidx; 					// title : 'path' 눌렀을때 인덱스 저장
+	static int restlisttableidx;
 
 	public TableSelectionDemo() {
 		super(new BorderLayout());
@@ -96,14 +97,15 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 			System.out.println(selectedIndex); // ->...? 누르는 layout의 인덱스만 가져오는듯 -> 연관관계 x
 
 			String name = (String) tableModel.getValueAt(selectedIndex, 2);
-			// 아이템 테이블의 클릭은 텍스트 필드에 값을 보여주고
-			// 주문 테이블의 클릭은 장바구니의 값을 바꾼다
-
+			
 			if (tableTitle.equals("RestArea")) {
 				GUIMain.getInstance().restTop.kwdTextField.setText(name);
-			} else if (tableTitle.equals("direc")) {
+			} 
+			else if (tableTitle.equals("direc")) {
 				directableidx = selectedIndex;
 				pathtableidx = 0; // 초기화
+				restlisttableidx = 0;
+				
 				GUIMain.getInstance().pathTable.loadData("" + directableidx);
 				GUIMain.getInstance().restlistTable.loadData(""+pathtableidx);
 				
@@ -118,6 +120,9 @@ public class TableSelectionDemo extends JPanel implements ListSelectionListener 
 				System.out.println("(2)pathtableidx: " + directableidx);
 				System.out.println("(2)pathlisttableidx: " + pathtableidx);
 				System.out.println();
+				
+			} else if(tableTitle.equals("restlist")) {
+				restlisttableidx = selectedIndex;
 				
 			}
 		}
