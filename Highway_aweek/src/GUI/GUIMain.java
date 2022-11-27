@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import GUI_Panel.ImagePanel;
 import GUI_Panel.MainCenterPanel;
 import GUI_Panel.MainTopPanel;
+import Map.HighWay;
 
 
 //메인 프레임 
@@ -17,6 +18,7 @@ import GUI_Panel.MainTopPanel;
 public class GUIMain extends JFrame {
 	
 	GUIMain(){
+		
 		this.setTitle("경로 선택");
 
 		MainTopPanel maintoppanel = new MainTopPanel();		
@@ -34,7 +36,7 @@ public class GUIMain extends JFrame {
 //		add(imagepanel ,BorderLayout.CENTER);
 //		pack();
 		
-		this.setSize(900,500);				//JFrame크기
+		this.setSize(600,800);				//JFrame크기
 		this.setResizable(false);			//창의 크기를 변경하지 못하게
 		this.setLocationRelativeTo(null);	//창이 가운데 
 		this.setVisible(true);				//창이 보이게 
