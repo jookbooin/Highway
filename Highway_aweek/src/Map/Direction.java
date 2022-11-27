@@ -9,8 +9,8 @@ public class Direction implements Manageable {
 
 	public String startID;
 	public String arriveID;	
-	String start;
-	String arrive;
+	public String start;
+	public String arrive;
 
 	public ArrayList<Path> pathlist = new ArrayList<>();
 
