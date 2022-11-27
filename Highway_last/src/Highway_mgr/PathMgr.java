@@ -2,7 +2,7 @@ package Highway_mgr;
 
 import java.util.List;
 
-import Map.Directioin;
+import Map.Direction;
 import Map.Path;
 import facade.DataEngineInterface;
 
@@ -19,11 +19,11 @@ public class PathMgr implements DataEngineInterface<Path>{
 	
 	
 	public List<Path> mylist;
-	public void setPath(Directioin path) {
+	public void setPath(Direction path) {
 		mylist = path.pathlist;
 	}
 	
-	public Path getPathlist(Directioin path , int index) {
+	public Path getPathlist(Direction path , int index) {
 		
 		return path.pathlist.get(index);     // 끌어온 <Path> 의 pathlist에서 <Pathlist>를 인덱스를 통해 가져옴? 
 	}

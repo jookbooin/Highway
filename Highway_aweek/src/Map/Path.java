@@ -12,9 +12,12 @@ import facade.UIData;
 import mgr.Manageable;
 import mgr.Manager;
 
-public class Path implements Manageable, UIData {
 
-	String pathID;
+// 경로 표시할때 UIDATA로 경로 / 예상시간 / 거리 / 통행료  -> 데이터 입력받아야 함  
+public class Path implements Manageable ,UIData{
+
+	String startID;
+	String arriveID;
 	public String pathnum;
 	Direction direc;
 	String rest;
@@ -30,7 +33,8 @@ public class Path implements Manageable, UIData {
 	@Override
 	public void read(Scanner scan) {
 
-		pathID = scan.next();
+		startID = scan.next();
+		arriveID = scan.next();
 		pathnum = scan.next();
 
 		while (true) {
@@ -43,7 +47,7 @@ public class Path implements Manageable, UIData {
 			restset.add(restarea.waytype);
 		}
 
-		direc = HighWay.direcMgr.find(pathID);
+		direc = HighWay.direcMgr.find(startID,arriveID);	//시작 , 끝 으로 direc 찾음 
 		direc.addPathlist(this);
 	}
 
@@ -57,7 +61,7 @@ public class Path implements Manageable, UIData {
 	public boolean matches(String kwd) {
 //		if (kwd.length() == 0)
 //			return true;
-		if(pathID.equals(kwd))
+		if(startID.equals(kwd))
 			return true;
 		
 		return false;
@@ -68,6 +72,19 @@ public class Path implements Manageable, UIData {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	
+	@Override
+	public String[] getUiTexts() {
+		String[] texts = new String[4];
+	
+		texts[0] = highwayname;    			//경로
+		texts[1] = "예상시간"	;
+		texts[2] = "예상거리"	;
+		texts[3] = "통행료"	;
+		return texts;
+	}
+	
 
 	void printPathlist() {
 		Manager.indent();
@@ -174,22 +191,14 @@ public class Path implements Manageable, UIData {
 			}
 		}
 	}
-	
 
 	@Override
-	public void set(Object[] uitexts) {
+	public boolean matches(String startID, String arriveID) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
-	@Override
-	public String[] getUiTexts() {
-		String[] texts = new String[5];
 	
-		texts[0] = pathnum;
-		texts[1] = HighWay.direcMgr.find(pathID).start;
-		texts[2] = HighWay.direcMgr.find(pathID).arrive;
-		texts[3] = highwayname;
-		return texts;
-	}
+	
+
 }

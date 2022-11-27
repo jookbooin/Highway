@@ -3,10 +3,10 @@ package Highway_mgr;
 import java.util.List;
 
 import Map.HighWay;
-import Map.Directioin;
+import Map.Direction;
 import facade.DataEngineInterface;
 
-public class DirecMgr implements DataEngineInterface<Directioin> {
+public class DirecMgr implements DataEngineInterface<Direction> {
 
 	private static DirecMgr mgr = null;
 
@@ -19,7 +19,7 @@ public class DirecMgr implements DataEngineInterface<Directioin> {
 		return mgr;
 	}
 	
-	public Directioin getPath(int index) {
+	public Direction getPath(int index) {
 		return HighWay.direcMgr.mlist.get(index);
 	}
 
@@ -44,7 +44,7 @@ public class DirecMgr implements DataEngineInterface<Directioin> {
 	}
 
 	@Override
-	public List<Directioin> search(String kwd) {
+	public List<Direction> search(String kwd) {
 		// TODO Auto-generated method stub
 		return HighWay.direcMgr.findAll(kwd);
 	}

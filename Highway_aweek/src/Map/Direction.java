@@ -3,15 +3,13 @@ package Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import facade.UIData;
 import mgr.Manageable;
 
-public class Directioin implements Manageable , UIData{
+public class Direction implements Manageable {
 
-	public String pathID;
+	public String startID;
+	public String arriveID;	
 	String start;
-	String startIC;
-	String arriveIC;
 	String arrive;
 
 	public ArrayList<Path> pathlist = new ArrayList<>();
@@ -22,17 +20,15 @@ public class Directioin implements Manageable , UIData{
 
 	@Override
 	public void read(Scanner scan) {
-		pathID = scan.next();
+		startID = scan.next();
+		arriveID= scan.next();
 		start = scan.next();
 		arrive = scan.next();
-		startIC = scan.next();
-		arriveIC = scan.next();
-
 	}
 
 	@Override
 	public void print() {
-		printIC();
+		System.out.format("[출발:%s(%s)  도착:%s(%s)] \n", start,startID, arrive,arriveID);
 		printlist();
 	}
 
@@ -40,15 +36,17 @@ public class Directioin implements Manageable , UIData{
 	public boolean matches(String kwd) {
 		if (kwd.length() == 0)
 			return true;
-		if (pathID.equals(kwd))
+		if (startID.equals(kwd))
 			return true;
 		if (start.equals(kwd))
 			return true;
-		if (startIC.equals(kwd))
-			return true;
-		if (arriveIC.equals(kwd))
-			return true;
 		if (arrive.equals(kwd))
+			return true;
+		return false;
+	}
+	
+	public boolean matches(String startID, String arriveID) {
+		if(startID.equals(this.startID)&& arriveID.equals(this.arriveID))
 			return true;
 		return false;
 	}
@@ -63,9 +61,6 @@ public class Directioin implements Manageable , UIData{
 		return false;
 	}
 
-	void printIC() {
-		System.out.format("[%s->%s] 시작IC:%sIC 종료IC:%sIC\n", start, arrive, startIC, arriveIC);
-	}
 
 	void printlist() {
 		for (Path pl : pathlist)
@@ -73,22 +68,5 @@ public class Directioin implements Manageable , UIData{
 		System.out.println();
 	}
 
-	@Override
-	public void set(Object[] uitexts) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String[] getUiTexts() {        //"번호","출발", "목적지", "시작IC","종료IC"
-		// TODO Auto-generated method stub
-		String[] texts = new String[5];
-		texts[0] = pathID;
-		texts[1] = start;
-		texts[2] = arrive;
-		texts[3] = startIC;
-		texts[4] = arriveIC;
-		return texts;
-	}
 
 }

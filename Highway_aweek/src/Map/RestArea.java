@@ -3,14 +3,9 @@ package Map;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Highway_mgr.RestMgr;
-import facade.UIData;
 import mgr.Manageable;
 
-public class RestArea implements Manageable, UIData {
-	int  guinum=0;
-	int  num; // 전체 restArea의 개수를 알기위해서
-	int pathnum = HighWay.restnum; // 경로 생성했을때 번호 - GUI 표시용도
+public class RestArea implements Manageable{
 	String waytype;
 	public String restname;
 	String number;
@@ -37,8 +32,6 @@ public class RestArea implements Manageable, UIData {
 	
 	@Override
 	public void read(Scanner scan) {
-		HighWay.restnum++;
-		num = HighWay.restnum;
 		waytype = scan.next();
 		restname = scan.next();
 		number = scan.next();
@@ -66,7 +59,6 @@ public class RestArea implements Manageable, UIData {
 
 	@Override
 	public void print() {
-		System.out.print(num + ".");
 		printname();
 		indent();
 		printfac();
@@ -119,28 +111,6 @@ public class RestArea implements Manageable, UIData {
 		}
 		return false;
 	}
-
-	@Override
-	public void set(Object[] uitexts) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String[] getUiTexts() {
-		// TODO Auto-generated method stub
-		String[] texts = new String[5];
-		
-		texts[0] = ""+(pathnum+1);
-		texts[1] = waytype;
-		texts[2] = restname;
-		texts[3] = number;
-		return texts;
-	}
-
-//
-//
-//
 	
 	public void printname() {
 		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);
@@ -176,6 +146,13 @@ public class RestArea implements Manageable, UIData {
 
 	void indent() {
 		System.out.print("  ");
+	}
+
+
+	@Override
+	public boolean matches(String startID, String arriveID) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

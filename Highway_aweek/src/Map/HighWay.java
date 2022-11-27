@@ -28,7 +28,7 @@ public class HighWay {
 			}
 		});
 		System.out.println("\n=================고속도로 종류 =================");
-		restMgr.printAll();
+//		restMgr.printAll();
 
 		direcMgr.readAll("direction.txt", new Factory<Direction>() {
 			@Override
@@ -37,6 +37,7 @@ public class HighWay {
 			}
 		});
 		System.out.println("\n=================경로 종류 =================");
+		
 
 		pathMgr.readAll("path.txt", new Factory<Path>() {
 			@Override
@@ -44,8 +45,16 @@ public class HighWay {
 				return new Path();
 			}
 		});
-
-		pathMgr.printAll();
+		
+		direcMgr.printAll();
+		
+		
+		
+		
+		
+		
+		
+//		pathMgr.printAll();
 
 //		System.out.println("\n=================경로 검색 =================");
 //		System.out.println("pathMgr");
