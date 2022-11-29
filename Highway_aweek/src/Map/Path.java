@@ -23,7 +23,7 @@ public class Path implements Manageable ,UIData{
 	String rest;
 //	public InnerRestlist irl = new InnerRestlist(this);
 	public ArrayList<RestArea> restlist = new ArrayList<>();
-	String highwayname = "";
+	public String highwayname = "";
 
 	// 경로상 휴게소 전체
 	Set<String> restset = new HashSet<>(); // 경로에 지나는 고속도로들
@@ -46,8 +46,13 @@ public class Path implements Manageable ,UIData{
 			restlist.add(restarea);
 			restset.add(restarea.waytype);
 		}
-
-		direc = HighWay.direcMgr.find(startID,arriveID);	//시작 , 끝 으로 direc 찾음 
+		
+		//정보 모두 읽고 경로를 종합한다.
+		Iterator<String> it = restset.iterator();
+		while (it.hasNext()) {
+			highwayname += it.next() + " ";
+		}
+		direc = HighWay.direcMgr.find(startID,arriveID);	//시작 , 끝 으로 direc 찾음
 		direc.addPathlist(this);
 	}
 
@@ -77,7 +82,6 @@ public class Path implements Manageable ,UIData{
 	@Override
 	public String[] getUiTexts() {
 		String[] texts = new String[4];
-	
 		texts[0] = highwayname;    			//경로
 		texts[1] = "예상시간"	;
 		texts[2] = "예상거리"	;
@@ -90,11 +94,7 @@ public class Path implements Manageable ,UIData{
 		Manager.indent();
 		System.out.printf("[경로%s]:", pathnum);
 
-		Iterator<String> it = restset.iterator();
-		while (it.hasNext()) {
-			highwayname += it.next() + " ";
-
-		}
+		
 		System.out.println(highwayname);
 	}
 

@@ -25,8 +25,8 @@ public class Manager<T extends Manageable> {
 	}
 	
 	public T find(String startID, String arriveID) {
-		if (startID.equalsIgnoreCase("x"))
-			return mlist.get(0);
+//		if (startID.equalsIgnoreCase("x"))
+//			return mlist.get(0);
 
 		for (T p : mlist) {
 			if (p.matches(startID,arriveID))

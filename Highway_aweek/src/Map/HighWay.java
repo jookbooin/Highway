@@ -46,15 +46,18 @@ public class HighWay {
 			}
 		});
 		
+		Direction direc = direcMgr.find("0", "5");
+		System.out.println(direc.arrive);
+		for (Path p : direc.pathlist) {
+			System.out.println(p.pathnum);
+			System.out.println(p.highwayname);
+		}
+		
+
+		
+
+		
 		direcMgr.printAll();
-		
-		
-		
-		
-		
-		
-		
-//		pathMgr.printAll();
 
 //		System.out.println("\n=================경로 검색 =================");
 //		System.out.println("pathMgr");
