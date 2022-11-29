@@ -23,7 +23,7 @@ public class Path implements Manageable ,UIData{
 	String rest;
 //	public InnerRestlist irl = new InnerRestlist(this);
 	public ArrayList<RestArea> restlist = new ArrayList<>();
-	String highwayname = "";
+	public String highwayname = "";
 
 	// 경로상 휴게소 전체
 	Set<String> restset = new HashSet<>(); // 경로에 지나는 고속도로들

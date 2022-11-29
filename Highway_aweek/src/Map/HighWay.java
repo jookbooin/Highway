@@ -57,7 +57,7 @@ public class HighWay {
 		
 
 		
-//		pathMgr.printAll();
+		direcMgr.printAll();
 
 //		System.out.println("\n=================경로 검색 =================");
 //		System.out.println("pathMgr");
