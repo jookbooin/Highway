@@ -33,10 +33,8 @@ public class SecondFrame extends JFrame{
 		guirestlist = path.restlist;
 		
 		System.out.println(path.highwayname);
-		for(RestArea a : guirestlist) {
-		
-			a.printname();
-		}
+		for(RestArea a : guirestlist) 
+			System.out.println(a);
 		
 		this.setSize(700, 600); // JFrame크기
 		this.setResizable(false); // 창의 크기를 변경하지 못하게

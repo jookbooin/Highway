@@ -1,12 +1,17 @@
 package Practice;
-import java.awt.Container;
+
 import java.io.InterruptedIOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.*;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import GUI_Custom.RoundedButton;
 import Map.Direction;
 import Map.HighWay;
 import Map.Path;
@@ -14,69 +19,110 @@ import Map.RestArea;
 
 public class TestFrame extends JFrame {
 
-//	String[] start = { "서울", "대구", "광주", "대전", "울산", "부산" };
+//	
 	String[] start;
-	
+	private BevelBorder bb = new BevelBorder(BevelBorder.LOWERED);
 	Direction direc = HighWay.direcMgr.find("0", "5");
 	Path path = direc.pathlist.get(0);
-	List<RestArea> rlist = path.restlist;
-	
-	RestArea[] restArea = rlist.stream().toArray(RestArea[]::new);//리스트 배열로 바꿔줌
-	
-	
-	
+	List<RestArea> rlist = path.restlist;// 현재 휴게소 리스트
+	List<String> restnamelist = new ArrayList<>();
+
+	RestArea[] restArea = rlist.stream().toArray(RestArea[]::new);// 리스트 배열로 바꿔줌
+	String[] restnamearray = null;
+
+	int storeidx ;
+	int startidx ;
+
+	List<RestArea> sublist;
 
 	TestFrame() {
 		this.setTitle("절대적 위치 설정");
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		setTitle("Null Container Sample");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container c = getContentPane();
-		c.setLayout(new GridLayout(2, 1));
+		c.setLayout(new BorderLayout());
+		
+		for (RestArea ra : rlist) 
+			restnamelist.add(ra.restname);// 시작하자마자 들어온 리스트로 콤보박스 만들준비 
+			
+		restnamearray = restnamelist.stream().toArray(String[]::new);  //콤보박스에 들어갈 String배열 생성
+		
 
-		JPanel north = new JPanel();
-		north.setLayout(null);
-		JLabel la = new JLabel("Hello, Press Buttons!");
-		la.setLocation(130, 50);
-		la.setSize(200, 20);
-		north.add(la);
+		JPanel toppanel = new JPanel(); 						// 콤보박스
+		toppanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
+		JComboBox<String> restcombo = new JComboBox<>(restnamearray);
+		restcombo.setPreferredSize(new Dimension(100, 30));
+		restcombo.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
 
-		JPanel center = new JPanel();
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
-//		center.setLayout(null);
-		center.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 80));
+				JComboBox jcb = (JComboBox) e.getSource();
+				storeidx = jcb.getSelectedIndex(); //
+				System.out.println("storeidx:"+ storeidx);
+
+			}
+		});
+		
+		
+		RoundedButton search = new RoundedButton("조회");
+		search.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
+
+			public void actionPerformed(ActionEvent e) {
+				startidx = storeidx;
+				System.out.println("startidx:"+startidx);
+								}
+			});
+		
+		toppanel.add(restcombo);
+		toppanel.add(search);
+
+		
+		
+//		toppanel.setLayout(null);	
+		JPanel centerpanel = new JPanel();
+//		center.setLayout(null);			//이 패널안에서 자동배치가 아닌 절대배치를 사용하기 위해서 
+		centerpanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50)); // 중앙부터 배열될수 있도록 사용
+		
 		for (int i = 0; i < restArea.length; i++) {
-//			JButton b = new JButton(new ImageIcon("./GUIimage/circle.jpg"));
-			JButton b = new JButton(restArea[i].restname, new ImageIcon("./GUIimage/circle.jpg"));
-			b.setVerticalTextPosition(JButton.BOTTOM);
-			b.setHorizontalTextPosition(JButton.CENTER);
 
-//			b.setLocation(i*50, i*50);
-//			b.setSize(50, 20);
-			b.setBorderPainted(false);
-			b.setContentAreaFilled(false);
-			b.setFocusPainted(false);
-			b.setOpaque(false);
+			JButton bt = new JButton(restArea[i].restname, new ImageIcon("./GUIimage/circle.jpg"));
+			bt.setVerticalTextPosition(JButton.BOTTOM);
+			bt.setHorizontalTextPosition(JButton.CENTER);
 
-			b.addActionListener(new ActionListener() {
+//			b.setBorderPainted(false);
+			bt.setContentAreaFilled(false);
+			bt.setFocusPainted(false);
+//			b.setOpaque(false);
+
+			bt.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					
-					
-					System.out.println(e.getSource().toString());
-				}
 
+					System.out.println(bt.getText());
+					int idx = rlist.indexOf(new RestArea(bt.getText()));
+					System.out.println(idx);
+					sublist = rlist.stream().skip(idx).collect(Collectors.toList()); // sublist 생성
+					for (RestArea ra : sublist)
+						System.out.println(ra);
+
+				
+				}
 			});
 
-			center.add(b);
+			centerpanel.add(bt);
 		}
-		c.add(center);
-		c.add(north);
-	
+
+		JPanel bottompanel = new JPanel();
+		bottompanel.setLayout(null);
+		JLabel la = new JLabel("Hello, Press Buttons!");
+		la.setLocation(130, 50);
+		la.setSize(200, 20);
+		bottompanel.add(la);
+
+		c.add(toppanel,BorderLayout.NORTH); // north
+		c.add(centerpanel,BorderLayout.CENTER); // center
+		c.add(bottompanel,BorderLayout.SOUTH); // south
 
 //			JPanel outpanel = new JPanel(new BorderLayout(100 ,100));
 //			Container container = getContentPane();
@@ -105,17 +151,10 @@ public class TestFrame extends JFrame {
 		this.setVisible(true);
 	}
 
-	private ImageIcon imageSetsize(ImageIcon icon, int i, int j) {
-		Image ximg = icon.getImage(); // ImageIcon을 Image로 변환.
-		Image yimg = ximg.getScaledInstance(i, j, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon xyimg = new ImageIcon(yimg);
-		return null;
-	}
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		 HighWay highway = HighWay.getInstance();
-		 highway.run();
+		HighWay highway = HighWay.getInstance();
+		highway.run();
 		new TestFrame();
 	}
 

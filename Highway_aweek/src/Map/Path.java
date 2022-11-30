@@ -104,7 +104,7 @@ public class Path implements Manageable ,UIData{
 			Manager.indent();
 			
 			System.out.print((restlist.indexOf(ra) + 1) + ".");
-			ra.printname();
+			System.out.println(ra);
 		}
 		System.out.println();
 	}

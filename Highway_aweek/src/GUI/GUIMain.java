@@ -4,6 +4,7 @@ package GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -48,7 +49,7 @@ public class GUIMain extends JFrame {
 	JPanel ImageButton = new JPanel(new BorderLayout());
 	JPanel btnspanel = new JPanel();////////////////////////// 경로검색 '버튼 있는 패널
 	
-
+	
 	void run() {
 		outTopPane();
 		outbottomPane();
