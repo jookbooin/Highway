@@ -21,7 +21,7 @@ public class Path implements Manageable ,UIData{
 	public String pathnum;
 	Direction direc;
 	String rest;
-//	public InnerRestlist irl = new InnerRestlist(this);
+
 	public ArrayList<RestArea> restlist = new ArrayList<>();
 	public String highwayname = "";
 

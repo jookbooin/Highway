@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import GUI_Custom.RoundedButton;
 import GUI_Panel.ImagePanel;
 import GUI_Panel.MainCenterPanel;
 import GUI_Panel.MainTopPanel;
@@ -82,7 +83,8 @@ public class GUIMain extends JFrame {
 
 		//
 		JPanel btnpanel = new JPanel(new BorderLayout());
-		JButton search = new JButton("조회");
+//		JButton search = new JButton("조회");
+		RoundedButton search = new RoundedButton("조회");
 		btnpanel.add(search, BorderLayout.CENTER);
 
 		// 붙임
@@ -138,7 +140,7 @@ public class GUIMain extends JFrame {
 		// DefaultTableModel 틀 붙임 --> 배열을 table의 row 형태로 다뤄야 함
 		JTable table = new JTable(model);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 80));
-		TableMethod.setJTableColumnsWidth(table, 700, 100, 50, 50, 50); // 테이블 크기 조절
+		TableMethod.setJTableColumnsWidth(table, 700, 100, 30, 30, 30); // 테이블 크기 조절
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {

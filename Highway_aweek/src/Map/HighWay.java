@@ -27,7 +27,7 @@ public class HighWay {
 				return new RestArea();
 			}
 		});
-		System.out.println("\n=================고속도로 종류 =================");
+//		System.out.println("\n=================고속도로 종류 =================");
 //		restMgr.printAll();
 
 		direcMgr.readAll("direction.txt", new Factory<Direction>() {
@@ -36,6 +36,7 @@ public class HighWay {
 				return new Direction();
 			}
 		});
+//		direcMgr.printAll();
 		System.out.println("\n=================경로 종류 =================");
 		
 
@@ -45,19 +46,16 @@ public class HighWay {
 				return new Path();
 			}
 		});
-		
-		Direction direc = direcMgr.find("0", "5");
-		System.out.println(direc.arrive);
-		for (Path p : direc.pathlist) {
-			System.out.println(p.pathnum);
-			System.out.println(p.highwayname);
-		}
-		
-
-		
-
-		
 		direcMgr.printAll();
+//		
+//		Direction direc = direcMgr.find("0", "5");
+//		System.out.println(direc.arrive);
+//		for (Path p : direc.pathlist) {
+//			System.out.println(p.pathnum);
+//			System.out.println(p.highwayname);
+//		}
+//		
+//		direcMgr.printAll();
 
 //		System.out.println("\n=================경로 검색 =================");
 //		System.out.println("pathMgr");
