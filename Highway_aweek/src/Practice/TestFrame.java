@@ -31,8 +31,8 @@ public class TestFrame extends JFrame {
 	RestArea[] restArr = restlist.stream().toArray(RestArea[]::new);// 전체리스트 배열로 바꿔줌
 	RestArea[] subArr = null; // sublist 배열
 
-	int storeidx; // 콤보박스 인덱스
-	int startidx; // 콤보박스 -> 버튼 생성 인덱스
+	int comboidx; // 콤보박스 인덱스
+	int storeidx; // 콤보박스 -> 버튼 생성 인덱스
 
 	List<RestArea> sublist;
 
@@ -74,8 +74,8 @@ public class TestFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				JComboBox jcb = (JComboBox) e.getSource();
-				storeidx = jcb.getSelectedIndex(); //
-				System.out.println("storeidx:" + storeidx);
+				comboidx = jcb.getSelectedIndex(); //
+				System.out.println("storeidx:" + comboidx);
 			}
 		});
 
@@ -83,15 +83,15 @@ public class TestFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				// 시작위치 설정
-				startidx = storeidx;
-				System.out.println("startidx:" + startidx);
+				storeidx = comboidx;
+				System.out.println("startidx:" + storeidx);
 
 				// 처음부터 사라짐
 				centerpanel.removeAll();
 				centerpanel.revalidate();
 				centerpanel.repaint();
 
-				ButtonTest btest = new ButtonTest(restlist, startidx);
+				ButtonTest btest = new ButtonTest(restlist, storeidx);
 				// 버튼패널 가져와서 centerpanel 위에 붙임
 				centerpanel.add(btest.makeJPanel(), BorderLayout.NORTH);
 			}

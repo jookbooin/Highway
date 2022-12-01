@@ -1,4 +1,4 @@
-package Practice;
+package GUI;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,13 +13,13 @@ import javax.swing.JPanel;
 
 import Map.RestArea;
 
-public class ButtonTest {
+public class RestButton {
 
 	int startidx;
 	List<RestArea> restlist;
 	List<RestArea> sublist;
 
-	public ButtonTest(List<RestArea> restlist, int startidx) {
+	public RestButton(List<RestArea> restlist, int startidx) {
 		this.restlist = restlist;
 		this.startidx = startidx;
 	}
