@@ -172,7 +172,7 @@ public class GUIMain extends JFrame {
 
 	void imagePane() {
 
-		ImagePanel imgpanel = new ImagePanel(new ImageIcon("./roadimage/051.jpg").getImage());
+		ImagePanel imgpanel = new ImagePanel(new ImageIcon("./roadimage/054.jpg").getImage());
 		imgoutpanel.add(imgpanel);
 		// 현재 이미지는 imgoutpane 위에 있음
 

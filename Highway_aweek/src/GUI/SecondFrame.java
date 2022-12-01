@@ -51,63 +51,77 @@ public class SecondFrame extends JFrame {
 		restnameArr = restnamelist.stream().toArray(String[]::new); // 콤보박스에 들어갈 String배열 생성
 
 		this.setTitle("경로검색 ");
-
+		
+//Frame-> container화
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
 
+		container.add(secondTop(), BorderLayout.NORTH); // north
+		container.add(secondCenter(), BorderLayout.CENTER); // south
+
+		this.setSize(1000, 500);
+		this.setVisible(true);
+	}
+	
+	
+//secondFrame top 패널
+	 JPanel secondTop() {
 		// container에 붙이는 top
-		JPanel top = new JPanel();
-		top.setLayout(new BorderLayout());
+			JPanel top = new JPanel();
+			top.setLayout(new BorderLayout());
 
-		// container-top 패널에 콤보박스+버튼 넣는 패널
-		JPanel toppanel = new JPanel();
-		toppanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+			// container-top 패널에 콤보박스+버튼 넣는 패널
+			JPanel toppanel = new JPanel();
+			toppanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-		// 콤보박스
-		JComboBox<String> restcombo = new JComboBox<>(restnameArr);
-		restcombo.setPreferredSize(new Dimension(100, 30));
+			// 콤보박스
+			JComboBox<String> restcombo = new JComboBox<>(restnameArr);
+			restcombo.setPreferredSize(new Dimension(100, 30));
 
-		// 콤보박스 버튼
-		RoundedButton search = new RoundedButton("조회");
+			// 콤보박스 버튼
+			RoundedButton search = new RoundedButton("조회");
 
-		// container-top 패널에 버튼이 표시되는 패널
-		JPanel centerpanel = new JPanel();
-		centerpanel.setLayout(new BorderLayout());
+			// container-top 패널에 버튼이 표시되는 패널
+			JPanel centerpanel = new JPanel();
+			centerpanel.setLayout(new BorderLayout());
 
-		restcombo.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
+			restcombo.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+				@Override
+				public void actionPerformed(ActionEvent e) {
 
-				JComboBox jcb = (JComboBox) e.getSource();
-				comboidx = jcb.getSelectedIndex(); //
-				System.out.println("storeidx:" + comboidx);
-			}
-		});
+					JComboBox jcb = (JComboBox) e.getSource();
+					comboidx = jcb.getSelectedIndex(); //
+					System.out.println("storeidx:" + comboidx);
+				}
+			});
 
-		search.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
+			search.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
 
-			public void actionPerformed(ActionEvent e) {
-				// 시작위치 설정
-				storeidx = comboidx;
-				System.out.println("startidx:" + storeidx);
+				public void actionPerformed(ActionEvent e) {
+					// 시작위치 설정
+					storeidx = comboidx;
+					System.out.println("startidx:" + storeidx);
 
-				// 처음부터 사라짐
-				centerpanel.removeAll();
-				centerpanel.revalidate();
-				centerpanel.repaint();
+					// 처음부터 사라짐
+					centerpanel.removeAll();
+					centerpanel.revalidate();
+					centerpanel.repaint();
 
-				RestButton btest = new RestButton(restlist, storeidx);
-				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(btest.makeJPanel(), BorderLayout.NORTH);
-			}
-		});
+					RestButton btest = new RestButton(restlist, storeidx);
+					// 버튼패널 가져와서 centerpanel 위에 붙임
+					centerpanel.add(btest.makeJPanel(), BorderLayout.NORTH);
+				}
+			});
 
-		toppanel.add(restcombo);
-		toppanel.add(search);
-		top.add(toppanel, BorderLayout.NORTH);
-		top.add(centerpanel, BorderLayout.CENTER); // top 패널안에 toppanel(버튼)/ centerpanel(휴게소) 위치함
-
+			toppanel.add(restcombo);
+			toppanel.add(search);
+			top.add(toppanel, BorderLayout.NORTH);
+			top.add(centerpanel, BorderLayout.CENTER); // top 패널안에 toppanel(버튼)/ centerpanel(휴게소) 위치함
+			return top;
+	 }
+	 
+	JPanel secondCenter() {
 		JPanel center = new JPanel();
 		center.setLayout(new BorderLayout());
 
@@ -118,12 +132,7 @@ public class SecondFrame extends JFrame {
 		tab.add("시설/음식", jp2);
 
 		center.add(tab, BorderLayout.CENTER);
-
-		container.add(top, BorderLayout.NORTH); // north
-		container.add(center, BorderLayout.CENTER); // south
-
-		this.setSize(1000, 500);
-		this.setVisible(true);
+		return center;
 	}
 
 }
