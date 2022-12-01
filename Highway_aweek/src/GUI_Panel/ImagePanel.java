@@ -14,7 +14,7 @@ public class ImagePanel extends JPanel {
 
 	 public ImagePanel(Image img) {
 	      this.img = img;
-	      setPreferredSize(new Dimension(400, 400));
+	      setPreferredSize(new Dimension(430, 430));
 	      setLayout(null);
 	  }
 	  

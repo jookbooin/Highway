@@ -37,44 +37,23 @@ public class GUIMain extends JFrame {
 	int tableidx;
 
 	Direction direc;
-	JPanel outpanel = new JPanel(); ////////////////////////// 제일 바깥 패널
+	String imgidx; // img.jpg 표현 --> startidx + arriveidx + tableidx
 	
-	JPanel toppanel = new JPanel(new BorderLayout());///////// '조회'버튼 + table 붙이는 바깥 패널
-	JPanel combopanel = new JPanel(); //////////////////////// toppanel에 버튼 붙이는 패널
-	
-	JPanel bottompanel = new JPanel(new BorderLayout());  // 이미지와 버튼을 붙여서 out에 넣는 패널
-	
-	JPanel imgoutpanel = new JPanel();///////////////////////// 이미지패널 붙이는 패널
-	
-	JPanel ImageButton = new JPanel(new BorderLayout());
-	JPanel btnspanel = new JPanel();////////////////////////// 경로검색 '버튼 있는 패널
-	
-	
+	//콤보박스
+	String colName[] = { "경로 종류", "예상시간", "거리", "통행료" };
+	String[] start = { "서울", "대구", "광주", "대전", "울산", "부산" };
+	String[] arrive = { "서울", "대구", "광주", "대전", "울산", "부산" };
+
 	void run() {
-		outTopPane();
-		outbottomPane();
+		Container container = getContentPane();
+		container.setLayout(new BorderLayout());
 
-		this.add(outpanel);
-		this.setSize(800, 700); // JFrame크기
-		this.setResizable(false); // 창의 크기를 변경하지 못하게
-		this.setLocationRelativeTo(null); // 창이 가운데
-		this.setVisible(true); // 창이 보이게
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+		JPanel top = new JPanel();
+		top.setLayout(new BorderLayout()); // 간격은 만들어 주어야 할듯
 
-	GUIMain() {
-		this.setTitle("Main");
-	}
-	// ./image/053.jpg;
-
-	void outTopPane() {
-		// 버튼 붙이는 패널
-
-		String colName[] = { "경로 종류", "예상시간", "거리", "통행료" };
-		String[] start = { "서울", "대구", "광주", "대전", "울산", "부산" };
-		String[] arrive = { "서울", "대구", "광주", "대전", "울산", "부산" };
-
-		
+		// 콤보박스 2개 + 버튼 붙이는 패널
+		JPanel toppanel = new JPanel();
+		toppanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
 		JComboBox<String> startC = new JComboBox<>(start);
 		startC.setPreferredSize(new Dimension(200, 30));
@@ -82,16 +61,12 @@ public class GUIMain extends JFrame {
 		JComboBox<String> arriveC = new JComboBox<>(arrive);
 		arriveC.setPreferredSize(new Dimension(200, 30));
 
-		//
-		JPanel btnpanel = new JPanel(new BorderLayout());
-//		JButton search = new JButton("조회");
 		RoundedButton search = new RoundedButton("조회");
-		btnpanel.add(search, BorderLayout.CENTER);
+		search.setPreferredSize(new Dimension(50, 30));
 
-		// 붙임
-		combopanel.add(startC);
-		combopanel.add(arriveC);
-		combopanel.add(btnpanel);
+		toppanel.add(startC);
+		toppanel.add(arriveC);
+		toppanel.add(search);
 
 		startC.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
 
@@ -114,10 +89,13 @@ public class GUIMain extends JFrame {
 			}
 		});
 
+		// 테이블 붙이는 패널
+		JPanel tablepanel = new JPanel();
 		// 테이블 틀을 만듬
 		DefaultTableModel model = new DefaultTableModel(colName, 0);
 
-		search.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
+		// 조회 버튼 누르면 table을 초기화 해야함
+		search.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 
@@ -134,70 +112,84 @@ public class GUIMain extends JFrame {
 					for (Path p : direc.pathlist)
 						model.addRow(p.getUiTexts());
 				}
-
 			}
 		});
 
-		// DefaultTableModel 틀 붙임 --> 배열을 table의 row 형태로 다뤄야 함
-		JTable table = new JTable(model);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 80));
-		TableMethod.setJTableColumnsWidth(table, 700, 100, 30, 30, 30); // 테이블 크기 조절
+		
+		// 이미지 붙이는 패널
+		JPanel img = new JPanel(); // 이미지 붙이는 패널
 
+//		// DefaultTableModel 틀 붙임 --> 배열을 table의 row 형태로 다뤄야 함
+		JTable table = new JTable(model);
+		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		TableMethod.setJTableColumnsWidth(table, 700, 90, 40, 25, 30); // 테이블 크기 조절
+		
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 				tableidx = lsm.getMinSelectionIndex();
 
 				System.out.println("(2) startidx: " + startidx + " arriveidx: " + arriveidx + " tableidx :" + tableidx);
+				imgidx = "" + startidx + arriveidx + tableidx + "";
+				System.out.println(imgidx);
+
+				img.removeAll();
+				img.revalidate();
+				img.repaint();
+
+				ImagePanel imgpanel = new ImagePanel(new ImageIcon("./roadimage/" + imgidx + ".jpg").getImage());
+				img.add(imgpanel);
 
 			}
 		});
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 10, 10));
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-		toppanel.add(combopanel, BorderLayout.NORTH); // combobox
-		toppanel.add(scrollPane, BorderLayout.CENTER); // 리스트 나오도록
+		tablepanel.add(scrollPane);
+		top.add(toppanel, BorderLayout.NORTH);
+		top.add(tablepanel, BorderLayout.CENTER);
 
+		JPanel center = new JPanel();
+		center.add(img);
 
-		outpanel.add(toppanel);
-	}
-	
-	void outbottomPane() {
-		imagePane();
-		bottombtnPane();
-		
-		outpanel.add(bottompanel);
-		
-	}
+		container.add(top, BorderLayout.NORTH);
+		container.add(center, BorderLayout.CENTER);
+		container.add(bottom(), BorderLayout.SOUTH);
 
-	void imagePane() {
-
-		ImagePanel imgpanel = new ImagePanel(new ImageIcon("./roadimage/054.jpg").getImage());
-		imgoutpanel.add(imgpanel);
-		// 현재 이미지는 imgoutpane 위에 있음
-
-		bottompanel.add(imgoutpanel, BorderLayout.CENTER);
-
+		this.setSize(680, 680); // JFrame크기
+		this.setResizable(false); // 창의 크기를 변경하지 못하게
+		this.setLocationRelativeTo(null); // 창이 가운데
+		this.setVisible(true); // 창이 보이게
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	void bottombtnPane() {
-		
+	GUIMain() {
+		this.setTitle("Main");
+	}
+
+//	JPanel center() {
+//
+//	}
+
+	JPanel bottom() {
+		JPanel bottom = new JPanel();
 		JButton search2 = new JButton("경로 검색 ");
 		search2.setPreferredSize(new Dimension(200, 30));
 		search2.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
 
 			public void actionPerformed(ActionEvent e) {
-				if (tableidx >= 0)
-					new SecondFrame(startidx, arriveidx, tableidx);
-				else
-					System.out.println("경로를 선택하십시오.");
+				if (startidx != arriveidx) {
+					if (tableidx >= 0)
+						new SecondFrame(startidx, arriveidx, tableidx);
+					else
+						System.out.println("경로를 선택하십시오.");
+				} else {
+				}
 
 			}
 		});
 
-		btnspanel.add(search2); // 현재 버튼은 btnpanel2에 있음
-
-		bottompanel.add(btnspanel,BorderLayout.SOUTH);
-
+		bottom.add(search2);
+		return bottom;
 	}
 }
