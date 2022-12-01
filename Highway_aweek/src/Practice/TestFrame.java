@@ -21,36 +21,53 @@ public class TestFrame extends JFrame {
 
 //	
 	String[] start;
-	private BevelBorder bb = new BevelBorder(BevelBorder.LOWERED);
+//	private BevelBorder bb = new BevelBorder(BevelBorder.LOWERED);  --> 버튼 눌리는 효과 나중에 볼것 
 	Direction direc = HighWay.direcMgr.find("0", "5");
 	Path path = direc.pathlist.get(0);
-	List<RestArea> rlist = path.restlist;// 현재 휴게소 리스트
+	List<RestArea> restlist = path.restlist;// 현재 휴게소 리스트
 	List<String> restnamelist = new ArrayList<>();
 
-	RestArea[] restArea = rlist.stream().toArray(RestArea[]::new);// 리스트 배열로 바꿔줌
-	String[] restnamearray = null;
+	String[] restnameArr = null;// 콤보박스 들어가는 배열
+	RestArea[] restArr = restlist.stream().toArray(RestArea[]::new);// 전체리스트 배열로 바꿔줌
+	RestArea[] subArr = null; // sublist 배열
 
-	int storeidx ;
-	int startidx ;
+	int storeidx; // 콤보박스 인덱스
+	int startidx; // 콤보박스 -> 버튼 생성 인덱스
 
 	List<RestArea> sublist;
 
 	TestFrame() {
-		this.setTitle("절대적 위치 설정");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Container c = getContentPane();
-		c.setLayout(new BorderLayout());
-		
-		for (RestArea ra : rlist) 
-			restnamelist.add(ra.restname);// 시작하자마자 들어온 리스트로 콤보박스 만들준비 
-			
-		restnamearray = restnamelist.stream().toArray(String[]::new);  //콤보박스에 들어갈 String배열 생성
-		
 
-		JPanel toppanel = new JPanel(); 						// 콤보박스
-		toppanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
-		JComboBox<String> restcombo = new JComboBox<>(restnamearray);
+		this.setTitle("휴게소 리스트");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Container container = getContentPane();
+		container.setLayout(new BorderLayout());
+
+		for (RestArea ra : restlist)
+			restnamelist.add(ra.restname);// 시작하자마자 들어온 리스트로 콤보박스 만들준비
+
+		restnameArr = restnamelist.stream().toArray(String[]::new); // 콤보박스에 들어갈 String배열 생성
+
+//container에 붙이는 top
+		JPanel top = new JPanel();
+		top.setLayout(new BorderLayout());
+
+//container-top 패널에 콤보박스+버튼 넣는 패널
+		JPanel toppanel = new JPanel();
+		toppanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+
+		// 콤보박스
+		JComboBox<String> restcombo = new JComboBox<>(restnameArr);
 		restcombo.setPreferredSize(new Dimension(100, 30));
+
+		// 콤보박스 버튼
+		RoundedButton search = new RoundedButton("조회");
+		JButton bt;
+
+//container-top 패널에 버튼이 표시되는 패널
+		JPanel centerpanel = new JPanel();
+		centerpanel.setLayout(new BorderLayout());
+
 		restcombo.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
 
 			@Override
@@ -58,96 +75,54 @@ public class TestFrame extends JFrame {
 
 				JComboBox jcb = (JComboBox) e.getSource();
 				storeidx = jcb.getSelectedIndex(); //
-				System.out.println("storeidx:"+ storeidx);
-
+				System.out.println("storeidx:" + storeidx);
 			}
 		});
-		
-		
-		RoundedButton search = new RoundedButton("조회");
+
 		search.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
 
 			public void actionPerformed(ActionEvent e) {
+				// 시작위치 설정
 				startidx = storeidx;
-				System.out.println("startidx:"+startidx);
-								}
-			});
-		
+				System.out.println("startidx:" + startidx);
+
+				// 처음부터 사라짐
+				centerpanel.removeAll();
+				centerpanel.revalidate();
+				centerpanel.repaint();
+
+				ButtonTest btest = new ButtonTest(restlist, startidx);
+				// 버튼패널 가져와서 centerpanel 위에 붙임
+				centerpanel.add(btest.makeJPanel(), BorderLayout.NORTH);
+			}
+		});
+
 		toppanel.add(restcombo);
 		toppanel.add(search);
+		top.add(toppanel, BorderLayout.NORTH);
+		top.add(centerpanel, BorderLayout.CENTER); // top 패널안에 toppanel(버튼)/ centerpanel(휴게소) 위치함
 
+//center-> 
+
+		JPanel center = new JPanel();
+		center.setLayout(new BorderLayout());
 		
+		JTabbedPane tab = new JTabbedPane();
+		JPanel jp1 = new JPanel();
+		JPanel jp2 = new JPanel();
+		tab.add("주유소", jp1); 
+		tab.add("시설/음식", jp2); 
 		
-//		toppanel.setLayout(null);	
-		JPanel centerpanel = new JPanel();
-//		center.setLayout(null);			//이 패널안에서 자동배치가 아닌 절대배치를 사용하기 위해서 
-		centerpanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 50)); // 중앙부터 배열될수 있도록 사용
+//		JLabel la = new JLabel("Hello, Press Buttons!");
+//		la.setLocation(130, 50);
+//		la.setSize(200, 20);
+//		center.add(la);
+		center.add(tab,BorderLayout.CENTER);
 		
-		for (int i = 0; i < restArea.length; i++) {
-
-			JButton bt = new JButton(restArea[i].restname, new ImageIcon("./GUIimage/circle.jpg"));
-			bt.setVerticalTextPosition(JButton.BOTTOM);
-			bt.setHorizontalTextPosition(JButton.CENTER);
-
-//			b.setBorderPainted(false);
-			bt.setContentAreaFilled(false);
-			bt.setFocusPainted(false);
-//			b.setOpaque(false);
-
-			bt.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					System.out.println(bt.getText());
-					int idx = rlist.indexOf(new RestArea(bt.getText()));
-					System.out.println(idx);
-					sublist = rlist.stream().skip(idx).collect(Collectors.toList()); // sublist 생성
-					for (RestArea ra : sublist)
-						System.out.println(ra);
-
-				
-				}
-			});
-
-			centerpanel.add(bt);
-		}
-
-		JPanel bottompanel = new JPanel();
-		bottompanel.setLayout(null);
-		JLabel la = new JLabel("Hello, Press Buttons!");
-		la.setLocation(130, 50);
-		la.setSize(200, 20);
-		bottompanel.add(la);
-
-		c.add(toppanel,BorderLayout.NORTH); // north
-		c.add(centerpanel,BorderLayout.CENTER); // center
-		c.add(bottompanel,BorderLayout.SOUTH); // south
-
-//			JPanel outpanel = new JPanel(new BorderLayout(100 ,100));
-//			Container container = getContentPane();
-//
-//	        container.setLayout(new FlowLayout(FlowLayout.CENTER,100,80));
-//
-//	        container.add(new JButton("add"))
-//	        container.add(new JButton("sub"));
-//
-//	        container.add(new JButton("mul"));
-//
-//	        container.add(new JButton("div"));
-//	        
-//	        container.add(new JButton("add1"));
-//
-//	        container.add(new JButton("sub2"));
-//
-//	        container.add(new JButton("mul3"));
-//
-//	        container.add(new JButton("div4"));
-//	        outpanel.add(container);
-//	        this.add(outpanel);
+		container.add(top, BorderLayout.NORTH);		 // north
+		container.add(center, BorderLayout.CENTER); // south
 
 		this.setSize(1000, 500);
-
 		this.setVisible(true);
 	}
 
