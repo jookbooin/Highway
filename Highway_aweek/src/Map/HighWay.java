@@ -47,21 +47,7 @@ public class HighWay {
 			}
 		});
 		direcMgr.printAll();
-//		
-//		Direction direc = direcMgr.find("0", "5");
-//		System.out.println(direc.arrive);
-//		for (Path p : direc.pathlist) {
-//			System.out.println(p.pathnum);
-//			System.out.println(p.highwayname);
-//		}
-//		
-//		direcMgr.printAll();
 
-//		System.out.println("\n=================경로 검색 =================");
-//		System.out.println("pathMgr");
-//		Path selectPath = pathMgr.mlist.get(0);
-//		System.out.print(selectPath.pathID + " " + selectPath.pathnum);
-//		selectPath.search();///경로 휴게소내에서 검색 
 
 	}
 

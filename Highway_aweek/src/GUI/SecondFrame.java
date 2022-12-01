@@ -1,20 +1,12 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 import GUI_Custom.RoundedButton;
 import Map.Direction;
@@ -57,10 +49,10 @@ public class SecondFrame extends JFrame {
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
 
-		container.add(secondTop(), BorderLayout.NORTH); // north
-		container.add(secondCenter(), BorderLayout.CENTER); // south
+		container.add(secondTop(), BorderLayout.CENTER); // north
+		container.add(secondCenter(), BorderLayout.SOUTH); // south
 
-		this.setSize(1000, 500);
+		this.setSize(1350, 500);
 		this.setVisible(true);
 	}
 
@@ -76,9 +68,7 @@ public class SecondFrame extends JFrame {
 
 		JLabel curlo = new JLabel("현재위치");
 		curlo.setOpaque(true); // 불투명도를 참으로 설정하여 배경색을 보이게 한다
-		
-		
-		
+
 		// 콤보박스
 		JComboBox<String> restcombo = new JComboBox<>(restnameArr);
 		restcombo.setPreferredSize(new Dimension(100, 30));
@@ -131,13 +121,66 @@ public class SecondFrame extends JFrame {
 		center.setLayout(new BorderLayout());
 
 		JTabbedPane tab = new JTabbedPane();
-		JPanel gaspanel = new JPanel();
+
 		JPanel searchpanel = new JPanel();
-		tab.add("주유소", gaspanel);
-		tab.add("시설/음식", searchpanel);
+
+		tab.add("검색", searchpanel); // search 패널안에서 작업이 이루어져야 함 .
+
+		JPanel leftpanel = new JPanel();
+		// 라벨들이용해서 휴게소 정보넣는곳인듯?
+
+		JPanel rightpanel = new JPanel();
+		rightpanel.setLayout(new GridLayout(2, 1));
+
+		JPanel righttop = new JPanel();
+		righttop.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+		JLabel curlo = new JLabel("시설/음식");
+		JTextField tf = new JTextField(20);
+		RoundedButton tfsbt = new RoundedButton("검색");
+		righttop.add(curlo);
+		righttop.add(tf);
+		righttop.add(tfsbt);
+
+		JPanel rightbottom = new JPanel();
+		rightbottom.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
+		RoundedButton gasbt = new RoundedButton("휘발유");
+		RoundedButton diebt = new RoundedButton("경유");
+		RoundedButton lpgbt = new RoundedButton("LPG");
+		rightbottom.add(gasbt);
+		rightbottom.add(diebt);
+		rightbottom.add(lpgbt);
+		
+		
+		
+		
+//휘발유 , 경유 , lpg 최솟값 버튼 
+		gasbt.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+
+		diebt.addActionListener(new ActionListener() { 
+
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
+		lpgbt.addActionListener(new ActionListener() { 
+
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
+		rightpanel.add(righttop);
+		rightpanel.add(rightbottom);
+
+		searchpanel.add(leftpanel, BorderLayout.CENTER);
+		searchpanel.add(rightpanel, BorderLayout.LINE_END);
 
 		center.add(tab, BorderLayout.CENTER);
-		center.add(tab);
 		return center;
 	}
 

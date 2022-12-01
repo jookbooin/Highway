@@ -173,7 +173,7 @@ public class GUIMain extends JFrame {
 
 	JPanel bottom() {
 		JPanel bottom = new JPanel();
-		JButton search2 = new JButton("경로 검색 ");
+		RoundedButton search2 = new RoundedButton("경로 검색 ");
 		search2.setPreferredSize(new Dimension(200, 30));
 		search2.addActionListener(new ActionListener() { // 조회 버튼 누르면 table을 초기화 해야함
 
