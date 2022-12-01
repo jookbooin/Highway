@@ -3,7 +3,9 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.*;
+import javax.swing.text.AttributeSet.ColorAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,22 @@ public class SecondFrame extends JFrame {
 	int tableidx;
 	int comboidx; // 콤보박스 인덱스
 	int storeidx; // 콤보박스 -> 버튼 생성 인덱스
+	
+	//restlist중
+	int gasolinIdx;	//gasoline min 인덱스 
+	int dieselIdx;  //diesel min 인덱스
+	int lpgIdx;     //lpg min 인덱스
 
 	List<RestArea> restlist;
 	List<String> restnamelist = new ArrayList<>();
 	RestArea[] restArr;
 	String[] restnameArr = null;
+	
+	RestButton btest;
+	
 
 	SecondFrame(int startidx, int arriveidx, int tableidx) {
+		
 		this.startidx = startidx;
 		this.arriveidx = arriveidx;
 		this.tableidx = tableidx;
@@ -46,7 +57,9 @@ public class SecondFrame extends JFrame {
 		this.setTitle("경로검색 ");
 
 //Frame-> container화
+		
 		Container container = getContentPane();
+		 this.getContentPane().setBackground(new Color(255,255,255));
 		container.setLayout(new BorderLayout());
 
 		container.add(secondTop(), BorderLayout.CENTER); // north
@@ -102,9 +115,17 @@ public class SecondFrame extends JFrame {
 				centerpanel.revalidate();
 				centerpanel.repaint();
 
-				RestButton btest = new RestButton(restlist, storeidx);
+				btest = new RestButton(restlist, storeidx);
+				
 				// 버튼패널 가져와서 centerpanel 위에 붙임
 				centerpanel.add(btest.makeJPanel(), BorderLayout.NORTH);
+				System.out.println("MIN gosolineIdx:"+btest.findIdx(btest.findMin(1)));
+				System.out.println("MIN dieIdx:"+btest.findIdx(btest.findMin(2)));
+				System.out.println("MIN lpgIdx:"+btest.findIdx(btest.findMin(3)));
+				
+				gasolinIdx = btest.findIdx(btest.findMin(1));
+				dieselIdx = btest.findIdx(btest.findMin(2));
+				lpgIdx = btest.findIdx(btest.findMin(3));
 			}
 		});
 
@@ -154,23 +175,24 @@ public class SecondFrame extends JFrame {
 		
 		
 //휘발유 , 경유 , lpg 최솟값 버튼 
+//gasolineidx , dieselidx , lpgidx
 		gasbt.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
-				
+				btest.btArr[gasolinIdx].setBackground(new Color(255,255,00));
 			}
 		});
 
 		diebt.addActionListener(new ActionListener() { 
 
 			public void actionPerformed(ActionEvent e) {
-
+				btest.btArr[dieselIdx].setBackground(new Color(0,255,100));
 			}
 		});
 
 		lpgbt.addActionListener(new ActionListener() { 
 
 			public void actionPerformed(ActionEvent e) {
-
+				btest.btArr[lpgIdx].setBackground(new Color(150,150,150));
 			}
 		});
 

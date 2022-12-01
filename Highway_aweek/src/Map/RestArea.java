@@ -20,9 +20,9 @@ public class RestArea implements Manageable {
 	String dname = "경유";
 	String lname = "lpg";
 
-	int gasoline;
-	int diesel;
-	int lpg;
+	public int gasoline;
+	public int diesel;
+	public int lpg;
 
 	String electric;
 	String hydrogen;
@@ -183,6 +183,16 @@ public class RestArea implements Manageable {
 		return "["+waytype+"선] "+restname+"휴게소 (T."+number+")";
 	}
 
+	 public Integer getgasoline() {
+	        return gasoline;
+	    }
+	 public Integer getdiesel() {
+	        return diesel;
+	    }
+	 public Integer getlpg() {
+		
+	        return lpg;
+	    }
 	
 
 }
