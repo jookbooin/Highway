@@ -12,9 +12,8 @@ import facade.UIData;
 import mgr.Manageable;
 import mgr.Manager;
 
-
 // 경로 표시할때 UIDATA로 경로 / 예상시간 / 거리 / 통행료  -> 데이터 입력받아야 함  
-public class Path implements Manageable ,UIData{
+public class Path implements Manageable, UIData {
 
 	String startID;
 	String arriveID;
@@ -22,14 +21,18 @@ public class Path implements Manageable ,UIData{
 	Direction direc;
 	String rest;
 
+	String time;
+	String distance;
+	String price;
+
 	public ArrayList<RestArea> restlist = new ArrayList<>();
 	public String highwayname = "";
 
 	// 경로상 휴게소 전체
 	Set<String> restset = new HashSet<>(); // 경로에 지나는 고속도로들
-	
+
 	ArrayList<RestArea> sublist;
-	
+
 	@Override
 	public void read(Scanner scan) {
 
@@ -46,13 +49,17 @@ public class Path implements Manageable ,UIData{
 			restlist.add(restarea);
 			restset.add(restarea.waytype);
 		}
-		
-		//정보 모두 읽고 경로를 종합한다.
+
+		time = scan.next();
+		distance = scan.next();
+		price = scan.next();
+
+		// 정보 모두 읽고 경로를 종합한다.
 		Iterator<String> it = restset.iterator();
 		while (it.hasNext()) {
 			highwayname += it.next() + " ";
 		}
-		direc = HighWay.direcMgr.find(startID,arriveID);	//시작 , 끝 으로 direc 찾음
+		direc = HighWay.direcMgr.find(startID, arriveID); // 시작 , 끝 으로 direc 찾음
 		direc.addPathlist(this);
 	}
 
@@ -66,9 +73,9 @@ public class Path implements Manageable ,UIData{
 	public boolean matches(String kwd) {
 //		if (kwd.length() == 0)
 //			return true;
-		if(startID.equals(kwd))
+		if (startID.equals(kwd))
 			return true;
-		
+
 		return false;
 	}
 
@@ -77,24 +84,21 @@ public class Path implements Manageable ,UIData{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	
+
 	@Override
 	public String[] getUiTexts() {
 		String[] texts = new String[4];
-		texts[0] = highwayname;    			//경로
-		texts[1] = "예상시간"	;
-		texts[2] = "예상거리"	;
-		texts[3] = "통행료"	;
+		texts[0] = highwayname; // 경로
+		texts[1] = time;
+		texts[2] = distance+ "km";
+		texts[3] = price+ "원";
 		return texts;
 	}
-	
 
 	void printPathlist() {
 		Manager.indent();
 		System.out.printf("[경로%s]:", pathnum);
 
-		
 		System.out.println(highwayname);
 	}
 
@@ -102,7 +106,7 @@ public class Path implements Manageable ,UIData{
 		for (RestArea ra : restlist) {
 			Manager.indent();
 			Manager.indent();
-			
+
 			System.out.print((restlist.indexOf(ra) + 1) + ".");
 			System.out.println(ra);
 		}
@@ -110,7 +114,6 @@ public class Path implements Manageable ,UIData{
 	}
 
 	void search() {
-//		irl.search();
 		System.out.println("휴게소이름 입력");
 		RestArea currest = HighWay.restMgr.search();
 
@@ -133,7 +136,7 @@ public class Path implements Manageable ,UIData{
 			printsubcharge(num2);
 		}
 	}
-	
+
 	void printsubgas() {
 		for (RestArea ra : sublist) {
 			System.out.print(ra.restname + ":");
@@ -142,7 +145,6 @@ public class Path implements Manageable ,UIData{
 
 	}
 
-	
 	void compgas(ArrayList<RestArea> sublist, int num2) {
 
 		switch (num2) {
@@ -172,7 +174,7 @@ public class Path implements Manageable ,UIData{
 			break;
 		}
 	}
-	
+
 	void printsubcharge(int num2) {
 		if (num2 == 1) {
 			for (RestArea ra : sublist) {
@@ -197,8 +199,5 @@ public class Path implements Manageable ,UIData{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	
-	
 
 }
