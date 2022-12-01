@@ -1,11 +1,12 @@
 package Map;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import mgr.Manageable;
 
-public class RestArea implements Manageable{
+public class RestArea implements Manageable {
 	String waytype;
 	public String restname;
 	String number;
@@ -29,7 +30,11 @@ public class RestArea implements Manageable{
 	RestArea() {
 	}
 
-	
+	public RestArea(String restname) {
+		this.restname = restname;
+		
+	}
+
 	@Override
 	public void read(Scanner scan) {
 		waytype = scan.next();
@@ -57,9 +62,11 @@ public class RestArea implements Manageable{
 		hydrogen = scan.next();
 	}
 
+	
+
 	@Override
 	public void print() {
-		printname();
+		toString();
 		indent();
 		printfac();
 		indent();
@@ -72,7 +79,7 @@ public class RestArea implements Manageable{
 
 	@Override
 	public boolean matches(String kwd) {
-		if (waytype.contains(kwd))			//""가지면 초기화
+		if (waytype.contains(kwd)) // ""가지면 초기화
 			return true;
 		if (kwd.length() >= 2) {
 			if (waytype.equals(kwd))
@@ -111,10 +118,8 @@ public class RestArea implements Manageable{
 		}
 		return false;
 	}
+
 	
-	public void printname() {
-		System.out.format("[%s선] %s휴게소 (T.%12s)\n", waytype, restname, number);
-	}
 
 	public void printfac() {
 
@@ -148,11 +153,36 @@ public class RestArea implements Manageable{
 		System.out.print("  ");
 	}
 
-
 	@Override
 	public boolean matches(String startID, String arriveID) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(restname);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RestArea other = (RestArea) obj;
+		return Objects.equals(restname, other.restname);
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "["+waytype+"선] "+restname+"휴게소 (T."+number+")";
+	}
+
+	
 
 }
