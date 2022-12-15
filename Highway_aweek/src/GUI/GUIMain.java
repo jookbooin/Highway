@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import GUI_Custom.RoundedButton;
+import GUI_Panel.ChangePanel;
 import GUI_Panel.ImagePanel;
 import GUI_Panel.MainCenterPanel;
 import GUI_Panel.MainTopPanel;
@@ -31,7 +32,7 @@ import Method.TableMethod;
 //메인 프레임 
 @SuppressWarnings("serial")
 public class GUIMain extends JFrame {
-
+	ChangePanel cp = ChangePanel.getInstance(); 
 	int startidx;
 	int arriveidx;
 	int tableidx;
@@ -117,7 +118,7 @@ public class GUIMain extends JFrame {
 
 		
 		// 이미지 붙이는 패널
-		JPanel img = new JPanel(); // 이미지 붙이는 패널
+		JPanel imgoutpanel = new JPanel(); // 이미지 붙이는 패널
 
 //		// DefaultTableModel 틀 붙임 --> 배열을 table의 row 형태로 다뤄야 함
 		JTable table = new JTable(model);
@@ -132,13 +133,10 @@ public class GUIMain extends JFrame {
 				System.out.println("(2) startidx: " + startidx + " arriveidx: " + arriveidx + " tableidx :" + tableidx);
 				imgidx = "" + startidx + arriveidx + tableidx + "";
 				System.out.println(imgidx);
-
-				img.removeAll();
-				img.revalidate();
-				img.repaint();
-
+				cp.updatePanel(imgoutpanel);
+			
 				ImagePanel imgpanel = new ImagePanel(new ImageIcon("./roadimage/" + imgidx + ".jpg").getImage());
-				img.add(imgpanel);
+				imgoutpanel.add(imgpanel);
 
 			}
 		});
@@ -150,7 +148,7 @@ public class GUIMain extends JFrame {
 		top.add(tablepanel, BorderLayout.CENTER);
 
 		JPanel center = new JPanel();
-		center.add(img);
+		center.add(imgoutpanel);
 
 		container.add(top, BorderLayout.NORTH);
 		container.add(center, BorderLayout.CENTER);

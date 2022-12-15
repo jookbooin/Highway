@@ -1,44 +1,53 @@
 package GUI;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.event.*;
-import javax.swing.text.AttributeSet.ColorAttribute;
-
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+
 import GUI_Custom.RoundedButton;
+import GUI_Panel.ChangePanel;
 import Map.Direction;
 import Map.HighWay;
 import Map.Path;
 import Map.RestArea;
 
 public class SecondFrame extends JFrame {
-
+	
+	ChangePanel cp = ChangePanel.getInstance(); 
 	int startidx;
 	int arriveidx;
 	int tableidx;
 	int comboidx; // 콤보박스 인덱스
 	int storeidx; // 콤보박스 -> 버튼 생성 인덱스
-	
-	//restlist중
-	int gasolinIdx;	//gasoline min 인덱스 
-	int dieselIdx;  //diesel min 인덱스
-	int lpgIdx;     //lpg min 인덱스
+
+	// restlist중
+	int gasolinIdx; // gasoline min 인덱스
+	int dieselIdx; // diesel min 인덱스
+	int lpgIdx; // lpg min 인덱스
 
 	List<RestArea> restlist;
 	List<String> restnamelist = new ArrayList<>();
 	RestArea[] restArr;
 	String[] restnameArr = null;
-	
-	RestButton btest;
-	
+	JPanel centerpanel;
+	RestButton restbutton;
 
 	SecondFrame(int startidx, int arriveidx, int tableidx) {
-		
+
 		this.startidx = startidx;
 		this.arriveidx = arriveidx;
 		this.tableidx = tableidx;
@@ -57,9 +66,9 @@ public class SecondFrame extends JFrame {
 		this.setTitle("경로검색 ");
 
 //Frame-> container화
-		
+
 		Container container = getContentPane();
-		 this.getContentPane().setBackground(new Color(255,255,255));
+		this.getContentPane().setBackground(new Color(255, 255, 255));
 		container.setLayout(new BorderLayout());
 
 		container.add(secondTop(), BorderLayout.CENTER); // north
@@ -90,7 +99,7 @@ public class SecondFrame extends JFrame {
 		RoundedButton search = new RoundedButton("조회");
 
 		// container-top 패널에 버튼이 표시되는 패널
-		JPanel centerpanel = new JPanel();
+		centerpanel = new JPanel();
 		centerpanel.setLayout(new BorderLayout());
 
 		restcombo.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
@@ -109,23 +118,19 @@ public class SecondFrame extends JFrame {
 				// 시작위치 설정
 				storeidx = comboidx;
 				System.out.println("startidx:" + storeidx);
-
 				// 처음부터 사라짐
-				centerpanel.removeAll();
-				centerpanel.revalidate();
-				centerpanel.repaint();
-
-				btest = new RestButton(restlist, storeidx);
-				
+				cp.updatePanel(centerpanel);
+				restbutton = new RestButton(restlist, storeidx);
 				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(btest.makeJPanel(), BorderLayout.NORTH);
-				System.out.println("MIN gosolineIdx:"+btest.findIdx(btest.findMin(1)));
-				System.out.println("MIN dieIdx:"+btest.findIdx(btest.findMin(2)));
-				System.out.println("MIN lpgIdx:"+btest.findIdx(btest.findMin(3)));
-				
-				gasolinIdx = btest.findIdx(btest.findMin(1));
-				dieselIdx = btest.findIdx(btest.findMin(2));
-				lpgIdx = btest.findIdx(btest.findMin(3));
+				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				System.out.println("MIN gosolineIdx:" + restbutton.findIdx(restbutton.findMin(1)));
+				System.out.println("MIN dieIdx:" + restbutton.findIdx(restbutton.findMin(2)));
+				System.out.println("MIN lpgIdx:" + restbutton.findIdx(restbutton.findMin(3)));
+				System.out.println();
+
+				gasolinIdx = restbutton.findIdx(restbutton.findMin(1));
+				dieselIdx = restbutton.findIdx(restbutton.findMin(2));
+				lpgIdx = restbutton.findIdx(restbutton.findMin(3));
 			}
 		});
 
@@ -138,8 +143,8 @@ public class SecondFrame extends JFrame {
 	}
 
 	JPanel secondCenter() {
-		JPanel center = new JPanel();
-		center.setLayout(new BorderLayout());
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BorderLayout());
 
 		JTabbedPane tab = new JTabbedPane();
 
@@ -153,57 +158,74 @@ public class SecondFrame extends JFrame {
 		JPanel rightpanel = new JPanel();
 		rightpanel.setLayout(new GridLayout(2, 1));
 
-		JPanel righttop = new JPanel();
-		righttop.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
+		JPanel rtoppanel = new JPanel();
+		rtoppanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
 		JLabel curlo = new JLabel("시설/음식");
 		JTextField tf = new JTextField(20);
 		RoundedButton tfsbt = new RoundedButton("검색");
-		righttop.add(curlo);
-		righttop.add(tf);
-		righttop.add(tfsbt);
+		rtoppanel.add(curlo);
+		rtoppanel.add(tf);
+		rtoppanel.add(tfsbt);
 
-		JPanel rightbottom = new JPanel();
-		rightbottom.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
+		JPanel rbotpanel = new JPanel();
+		rbotpanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 0));
 		RoundedButton gasbt = new RoundedButton("휘발유");
 		RoundedButton diebt = new RoundedButton("경유");
 		RoundedButton lpgbt = new RoundedButton("LPG");
-		rightbottom.add(gasbt);
-		rightbottom.add(diebt);
-		rightbottom.add(lpgbt);
-		
-		
-		
-		
-//휘발유 , 경유 , lpg 최솟값 버튼 
+		rbotpanel.add(gasbt);
+		rbotpanel.add(diebt);
+		rbotpanel.add(lpgbt);
+
+//휘발유 , 경유 , lpg 최솟값버튼 찾기 위해서
 //gasolineidx , dieselidx , lpgidx
-		gasbt.addActionListener(new ActionListener() { 
+//버튼 누를때 마다 centerpanel안의 버튼 들이 변함 
+		
+		gasbt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btest.btArr[gasolinIdx].setBackground(new Color(255,255,00));
+				// 처음부터 사라짐
+				cp.updatePanel(centerpanel);
+				restbutton = new RestButton(restlist, storeidx);
+				// 버튼패널 가져와서 centerpanel 위에 붙임
+				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				restbutton.btArr[gasolinIdx].setBackground(new Color(255, 255, 00));
 			}
 		});
 
-		diebt.addActionListener(new ActionListener() { 
+		diebt.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				btest.btArr[dieselIdx].setBackground(new Color(0,255,100));
+				
+				cp.updatePanel(centerpanel);
+				restbutton = new RestButton(restlist, storeidx);
+				// 버튼패널 가져와서 centerpanel 위에 붙임
+				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+
+				// 버튼패널 가져와서 centerpanel 위에 붙임
+				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				restbutton.btArr[dieselIdx].setBackground(new Color(0, 255, 100));
 			}
 		});
 
-		lpgbt.addActionListener(new ActionListener() { 
+		lpgbt.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				btest.btArr[lpgIdx].setBackground(new Color(150,150,150));
+				// 처음부터 사라짐
+				cp.updatePanel(centerpanel);
+				restbutton = new RestButton(restlist, storeidx);
+				// 버튼패널 가져와서 centerpanel 위에 붙임
+				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				restbutton.btArr[lpgIdx].setBackground(new Color(150, 150, 150));
 			}
 		});
 
-		rightpanel.add(righttop);
-		rightpanel.add(rightbottom);
+		rightpanel.add(rtoppanel);
+		rightpanel.add(rbotpanel);
 
 		searchpanel.add(leftpanel, BorderLayout.CENTER);
 		searchpanel.add(rightpanel, BorderLayout.LINE_END);
 
-		center.add(tab, BorderLayout.CENTER);
-		return center;
+		centerPanel.add(tab, BorderLayout.CENTER);
+		return centerPanel;
 	}
 
 }

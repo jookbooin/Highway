@@ -28,44 +28,30 @@ public class RestButton {
 		this.startidx = startidx;
 	}
 
-//	void makeList(int num) { // 가격으로 된 리스트를 만듬
-//		price = new ArrayList<>();
-//		if (num == 1) {// gasoline
-//			for (RestArea ra : sublist)
-//				price.add(ra.gasoline);
-//		} else if (num == 2) { // diessel
-//			for (RestArea ra : sublist)
-//				price.add(ra.diesel);
-//		} else if (num == 3) {// lpg
-//			for (RestArea ra : sublist)
-//				price.add(ra.lpg);
-//		}
-//	}
+	RestArea findMin(int num) { // 객체 가져온다
 
-	RestArea findMin(int num) {	//객체 가져온다
-//		int min = 0; // 최저값 
-		RestArea ra;
+		RestArea minArea;
 		if (num == 1) {
-			ra = sublist.stream().min(Comparator.comparing(RestArea::getgasoline)).get();
-//			min = ra.gasoline;
-			return ra;
+			minArea = sublist.stream().filter(ra -> ra.getgasoline() > 0)
+					.min(Comparator.comparing(RestArea::getgasoline)).get();
+			System.out.println(minArea.restname + ": " + minArea.gasoline);
+			return minArea;
 		}
 		if (num == 2) {
-
-			ra = sublist.stream().min(Comparator.comparing(RestArea::getdiesel)).get();
-//			min = ra.diesel;
-			return ra;
+			minArea = sublist.stream().filter(ra -> ra.getdiesel() > 0).min(Comparator.comparing(RestArea::getdiesel))
+					.get();
+			System.out.println(minArea.restname + ": " + minArea.diesel);
+			return minArea;
 		}
 		if (num == 3) {
-			ra = sublist.stream().min(Comparator.comparing(RestArea::getlpg)).get(); // 0이나온다...
-//			min = ra.lpg;
-			return ra;
+			minArea = sublist.stream().filter(ra -> ra.getlpg() > 0).min(Comparator.comparing(RestArea::getlpg)).get(); // 0이나온다...
+			System.out.println(minArea.restname + ": " + minArea.lpg);
+			return minArea;
 		}
 		return null;
 	}
-	
 
-	int findIdx(RestArea ra) {//sublist에서 최솟값을 가지는 객체 restArea를 가져오면서
+	int findIdx(RestArea ra) {// sublist에서 최솟값을 가지는 객체 restArea를 가져오면서
 		return restlist.indexOf(ra);
 	}
 
@@ -90,10 +76,10 @@ public class RestButton {
 
 			btArr[i].setVerticalTextPosition(JButton.BOTTOM);
 			btArr[i].setHorizontalTextPosition(JButton.CENTER);
-			
-			btArr[i].setBackground(new Color(255,255,255));
-			btArr[i].setBorderPainted(false);		
-//			btArr[i].setContentAreaFilled(false);
+
+			btArr[i].setBackground(new Color(255, 255, 255));
+			btArr[i].setBorderPainted(false);
+//			abtArr[i].setContentAreaFilled(false);
 			btArr[i].setFocusPainted(false);
 //			btArr[i].setOpaque(false);
 
@@ -102,10 +88,6 @@ public class RestButton {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-//sublist 생성 -> 의미 없을듯? 
-
-//					for (RestArea ra : sublist)
-//						System.out.println(ra);
 				}
 			});
 

@@ -32,7 +32,7 @@ public class RestArea implements Manageable {
 
 	public RestArea(String restname) {
 		this.restname = restname;
-		
+
 	}
 
 	@Override
@@ -61,8 +61,6 @@ public class RestArea implements Manageable {
 		electric = scan.next();
 		hydrogen = scan.next();
 	}
-
-	
 
 	@Override
 	public void print() {
@@ -119,8 +117,6 @@ public class RestArea implements Manageable {
 		return false;
 	}
 
-	
-
 	public void printfac() {
 
 		System.out.format("편의시설:");
@@ -175,24 +171,27 @@ public class RestArea implements Manageable {
 		RestArea other = (RestArea) obj;
 		return Objects.equals(restname, other.restname);
 	}
-	
-	
 
 	@Override
 	public String toString() {
-		return "["+waytype+"선] "+restname+"휴게소 (T."+number+")";
+		return "[" + waytype + "선] " + restname + "휴게소 (T." + number + ")";
 	}
 
-	 public Integer getgasoline() {
-	        return gasoline;
-	    }
-	 public Integer getdiesel() {
-	        return diesel;
-	    }
-	 public Integer getlpg() {
-		
-	        return lpg;
-	    }
-	
+	public Integer getgasoline() {
+
+		return gasoline;
+
+	}
+
+	public Integer getdiesel() {
+
+		return diesel;
+
+	}
+
+	public Integer getlpg() {
+
+		return lpg;
+	}
 
 }
