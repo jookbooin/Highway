@@ -1,11 +1,20 @@
 package GUI;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+import GUI_Panel.ChangePanel;
+import GUI_Panel.TextLabel;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.ImageIcon;
@@ -15,8 +24,9 @@ import javax.swing.JPanel;
 import Map.RestArea;
 
 public class RestButton {
-
+	ChangePanel cp = ChangePanel.getInstance(); 
 	int startidx;
+	int clickidx;
 	List<RestArea> restlist;
 	static List<RestArea> sublist;
 	static JButton[] btArr;
@@ -83,11 +93,25 @@ public class RestButton {
 			btArr[i].setFocusPainted(false);
 //			btArr[i].setOpaque(false);
 
+			//위치 버튼 누르면 패널정보 최신화됨.
 			btArr[i].addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-
+					//leftpanel 관련
+					cp.updatePanel(TextLabel.pane);
+					JButton buttonSource = (JButton) e.getSource();
+					String restname = buttonSource.getText();
+					System.out.println("1: "+restname);
+					
+					RestArea curRestArea = null;
+					for(RestArea ra : sublist)
+						if(ra.restname.equals(restname)) {
+							curRestArea = ra;
+							System.out.println("2: "+curRestArea.restname);
+						}
+					TextLabel tl = new TextLabel(curRestArea.getUiTexts());
+					SecondFrame.textpanel.add(tl.textfield());
 				}
 			});
 

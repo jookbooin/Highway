@@ -3,10 +3,12 @@ package Map;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import facade.UIData;
 import mgr.Manageable;
 
-public class RestArea implements Manageable {
+public class RestArea implements Manageable, UIData {
 	String waytype;
 	public String restname;
 	String number;
@@ -14,7 +16,9 @@ public class RestArea implements Manageable {
 	String fac;
 
 	ArrayList<String> faclist = new ArrayList<>();
+	String facString;
 	ArrayList<String> foodlist = new ArrayList<>();
+	String foodString;
 
 	String gname = "»÷πﬂ¿Ø";
 	String dname = "∞Ê¿Ø";
@@ -60,6 +64,8 @@ public class RestArea implements Manageable {
 
 		electric = scan.next();
 		hydrogen = scan.next();
+		facString = faclist.stream().collect(Collectors.joining(","));
+		foodString = foodlist.stream().collect(Collectors.joining(","));
 	}
 
 	@Override
@@ -157,7 +163,8 @@ public class RestArea implements Manageable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(restname);
+		return Objects.hash(diesel, dname, electric, fac, facString, faclist, foodString, foodlist, gasoline, gname,
+				hydrogen, lname, lpg, menu, number, restname, waytype);
 	}
 
 	@Override
@@ -176,6 +183,7 @@ public class RestArea implements Manageable {
 	public String toString() {
 		return "[" + waytype + "º±] " + restname + "»ﬁ∞‘º“ (T." + number + ")";
 	}
+	
 
 	public Integer getgasoline() {
 
@@ -194,4 +202,22 @@ public class RestArea implements Manageable {
 		return lpg;
 	}
 
+	@Override
+	public String[] getUiTexts() {
+		String[] text = new String[10];
+		text[0] = waytype;
+		text[1] = restname;
+		text[2] = number;
+		text[3] = facString;
+		text[4] = foodString;
+		text[5] = "" + gasoline;
+		text[6] = "" + diesel;
+		text[7] = "" + lpg;
+		text[8] = electric;
+		text[9] = hydrogen;
+
+		return text;
+	}
+
+	
 }

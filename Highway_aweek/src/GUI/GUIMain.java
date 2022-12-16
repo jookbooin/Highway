@@ -165,10 +165,6 @@ public class GUIMain extends JFrame {
 		this.setTitle("Main");
 	}
 
-//	JPanel center() {
-//
-//	}
-
 	JPanel bottom() {
 		JPanel bottom = new JPanel();
 		RoundedButton search2 = new RoundedButton("경로 검색 ");

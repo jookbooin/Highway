@@ -15,11 +15,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import GUI_Custom.RoundedButton;
 import GUI_Panel.ChangePanel;
+import GUI_Panel.TextLabel;
 import Map.Direction;
 import Map.HighWay;
 import Map.Path;
@@ -43,8 +45,9 @@ public class SecondFrame extends JFrame {
 	List<String> restnamelist = new ArrayList<>();
 	RestArea[] restArr;
 	String[] restnameArr = null;
-	JPanel centerpanel;
+	JPanel cbuttonpanel;
 	RestButton restbutton;
+	public static JPanel textpanel = new JPanel(new BorderLayout());
 
 	SecondFrame(int startidx, int arriveidx, int tableidx) {
 
@@ -74,7 +77,7 @@ public class SecondFrame extends JFrame {
 		container.add(secondTop(), BorderLayout.CENTER); // north
 		container.add(secondCenter(), BorderLayout.SOUTH); // south
 
-		this.setSize(1350, 500);
+		this.setSize(1350, 520);
 		this.setVisible(true);
 	}
 
@@ -84,7 +87,7 @@ public class SecondFrame extends JFrame {
 		JPanel top = new JPanel();
 		top.setLayout(new BorderLayout());
 
-		// container-top 패널에 콤보박스+버튼 넣는 패널
+		// containeㄹr-top 패널에 콤보박스+버튼 넣는 패널
 		JPanel toppanel = new JPanel();
 		toppanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
@@ -99,8 +102,8 @@ public class SecondFrame extends JFrame {
 		RoundedButton search = new RoundedButton("조회");
 
 		// container-top 패널에 버튼이 표시되는 패널
-		centerpanel = new JPanel();
-		centerpanel.setLayout(new BorderLayout());
+		cbuttonpanel = new JPanel();
+		cbuttonpanel.setLayout(new BorderLayout());
 
 		restcombo.addActionListener(new ActionListener() { // 콤보박스 이벤트-서울 선택
 
@@ -118,11 +121,13 @@ public class SecondFrame extends JFrame {
 				// 시작위치 설정
 				storeidx = comboidx;
 				System.out.println("startidx:" + storeidx);
-				// 처음부터 사라짐
-				cp.updatePanel(centerpanel);
+
+				cp.updatePanel(cbuttonpanel);
+				cp.updatePanel(TextLabel.pane);
 				restbutton = new RestButton(restlist, storeidx);
+				
 				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				cbuttonpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
 				System.out.println("MIN gosolineIdx:" + restbutton.findIdx(restbutton.findMin(1)));
 				System.out.println("MIN dieIdx:" + restbutton.findIdx(restbutton.findMin(2)));
 				System.out.println("MIN lpgIdx:" + restbutton.findIdx(restbutton.findMin(3)));
@@ -138,32 +143,37 @@ public class SecondFrame extends JFrame {
 		toppanel.add(restcombo);
 		toppanel.add(search);
 		top.add(toppanel, BorderLayout.NORTH);
-		top.add(centerpanel, BorderLayout.CENTER); // top 패널안에 toppanel(버튼)/ centerpanel(휴게소) 위치함
+		top.add(cbuttonpanel, BorderLayout.CENTER); // top 패널안에 toppanel(버튼)/ centerpanel(휴게소) 위치함
 		return top;
 	}
 
 	JPanel secondCenter() {
-		JPanel centerPanel = new JPanel();
-		centerPanel.setLayout(new BorderLayout());
+		JPanel center = new JPanel();
+		center.setLayout(new BorderLayout());
 
 		JTabbedPane tab = new JTabbedPane();
 
 		JPanel searchpanel = new JPanel();
-
+		searchpanel.setLayout(new GridLayout(1, 3));
 		tab.add("검색", searchpanel); // search 패널안에서 작업이 이루어져야 함 .
 
 		JPanel leftpanel = new JPanel();
-		// 라벨들이용해서 휴게소 정보넣는곳인듯?
+		leftpanel.setLayout(new BorderLayout());
+		// 라벨들이용해서
+		
+//		JScrollPane scrollPane = new JScrollPane(textpanel);
+		leftpanel.add(textpanel,BorderLayout.CENTER);
+		
 
 		JPanel rightpanel = new JPanel();
 		rightpanel.setLayout(new GridLayout(2, 1));
 
 		JPanel rtoppanel = new JPanel();
 		rtoppanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
-		JLabel curlo = new JLabel("시설/음식");
+		JLabel textlabel = new JLabel("시설/음식");
 		JTextField tf = new JTextField(20);
 		RoundedButton tfsbt = new RoundedButton("검색");
-		rtoppanel.add(curlo);
+		rtoppanel.add(textlabel);
 		rtoppanel.add(tf);
 		rtoppanel.add(tfsbt);
 
@@ -183,11 +193,11 @@ public class SecondFrame extends JFrame {
 		gasbt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 처음부터 사라짐
-				cp.updatePanel(centerpanel);
+				cp.updatePanel(cbuttonpanel);
 				restbutton = new RestButton(restlist, storeidx);
 				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
-				restbutton.btArr[gasolinIdx].setBackground(new Color(255, 255, 00));
+				cbuttonpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				restbutton.btArr[gasolinIdx].setBackground(new Color(255, 255, 0));
 			}
 		});
 
@@ -195,13 +205,13 @@ public class SecondFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				
-				cp.updatePanel(centerpanel);
+				cp.updatePanel(cbuttonpanel);
 				restbutton = new RestButton(restlist, storeidx);
 				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				cbuttonpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
 
 				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				cbuttonpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
 				restbutton.btArr[dieselIdx].setBackground(new Color(0, 255, 100));
 			}
 		});
@@ -210,10 +220,10 @@ public class SecondFrame extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				// 처음부터 사라짐
-				cp.updatePanel(centerpanel);
+				cp.updatePanel(cbuttonpanel);
 				restbutton = new RestButton(restlist, storeidx);
 				// 버튼패널 가져와서 centerpanel 위에 붙임
-				centerpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
+				cbuttonpanel.add(restbutton.makeJPanel(), BorderLayout.NORTH);
 				restbutton.btArr[lpgIdx].setBackground(new Color(150, 150, 150));
 			}
 		});
@@ -221,11 +231,11 @@ public class SecondFrame extends JFrame {
 		rightpanel.add(rtoppanel);
 		rightpanel.add(rbotpanel);
 
-		searchpanel.add(leftpanel, BorderLayout.CENTER);
-		searchpanel.add(rightpanel, BorderLayout.LINE_END);
+		searchpanel.add(leftpanel);
+		searchpanel.add(rightpanel);
 
-		centerPanel.add(tab, BorderLayout.CENTER);
-		return centerPanel;
+		center.add(tab, BorderLayout.CENTER);
+		return center;
 	}
 
 }

@@ -13,12 +13,12 @@ public class ChangePanel {
 		return cpanel;
 	}
 
-	JPanel panel;
+
 	public void updatePanel(JPanel curpanel) {
-		panel = curpanel;
-		panel.removeAll();
-		panel.revalidate();
-		panel.repaint();
+		curpanel.removeAll();
+		curpanel.revalidate();
+		curpanel.repaint();
+		
 	}
 	
 
