@@ -171,7 +171,7 @@ public class SecondFrame extends JFrame {
 		JPanel rtoppanel = new JPanel();
 		rtoppanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 20));
 		JLabel textlabel = new JLabel("시설/음식");
-		JTextField tf = new JTextField(20);
+		JTextField tf = new JTextField(30);
 		RoundedButton tfsbt = new RoundedButton("검색");
 		rtoppanel.add(textlabel);
 		rtoppanel.add(tf);
@@ -200,6 +200,7 @@ public class SecondFrame extends JFrame {
 				restbutton.btArr[gasolinIdx].setBackground(new Color(255, 255, 0));
 			}
 		});
+		gasbt.setPreferredSize(new Dimension(80, 40));
 
 		diebt.addActionListener(new ActionListener() {
 
@@ -215,6 +216,7 @@ public class SecondFrame extends JFrame {
 				restbutton.btArr[dieselIdx].setBackground(new Color(0, 255, 100));
 			}
 		});
+		diebt.setPreferredSize(new Dimension(80, 40));
 
 		lpgbt.addActionListener(new ActionListener() {
 
@@ -227,6 +229,7 @@ public class SecondFrame extends JFrame {
 				restbutton.btArr[lpgIdx].setBackground(new Color(150, 150, 150));
 			}
 		});
+		lpgbt.setPreferredSize(new Dimension(80, 40));
 
 		rightpanel.add(rtoppanel);
 		rightpanel.add(rbotpanel);

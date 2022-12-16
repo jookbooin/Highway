@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TextLabel extends JPanel {
+
+
 	String[] itemDetails;
 	JLabel details[] = new JLabel[10];
 

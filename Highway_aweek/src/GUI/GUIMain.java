@@ -24,6 +24,7 @@ import GUI_Panel.ChangePanel;
 import GUI_Panel.ImagePanel;
 import GUI_Panel.MainCenterPanel;
 import GUI_Panel.MainTopPanel;
+import GUI_Panel.TextLabel;
 import Map.Direction;
 import Map.HighWay;
 import Map.Path;
@@ -134,7 +135,6 @@ public class GUIMain extends JFrame {
 				imgidx = "" + startidx + arriveidx + tableidx + "";
 				System.out.println(imgidx);
 				cp.updatePanel(imgoutpanel);
-			
 				ImagePanel imgpanel = new ImagePanel(new ImageIcon("./roadimage/" + imgidx + ".jpg").getImage());
 				imgoutpanel.add(imgpanel);
 
@@ -173,8 +173,10 @@ public class GUIMain extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				if (startidx != arriveidx) {
-					if (tableidx >= 0)
+					if (tableidx >= 0) {
 						new SecondFrame(startidx, arriveidx, tableidx);
+						cp.updatePanel(TextLabel.pane);
+					}
 					else
 						System.out.println("경로를 선택하십시오.");
 				} else {

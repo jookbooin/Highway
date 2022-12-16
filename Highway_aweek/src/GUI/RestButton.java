@@ -1,13 +1,5 @@
 package GUI;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-
-import GUI_Panel.ChangePanel;
-import GUI_Panel.TextLabel;
-
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -21,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import GUI_Panel.ChangePanel;
+import GUI_Panel.TextLabel;
 import Map.RestArea;
 
 public class RestButton {
