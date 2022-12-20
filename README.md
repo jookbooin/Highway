@@ -31,12 +31,15 @@ api를 사용하지않고 서울,대구,광주,대전,울산,부산 에서 갈 �
 
 
   * 휘발유 
+  
     ![image](https://user-images.githubusercontent.com/94632156/208583984-a4c5f7a6-3a88-40fd-b914-2d2a3895948d.png)
 
   * 경유
+  
     ![image](https://user-images.githubusercontent.com/94632156/208584003-9669dfbe-69cb-48db-80d0-52015825a67a.png)
 
   * lpg
+  
     ![image](https://user-images.githubusercontent.com/94632156/208584016-7a2623ba-9267-496a-a5da-60d5a505a36b.png)
 
 
